@@ -1,0 +1,42 @@
+<mat-toolbar color="secondary">
+  <span class="title" routerLink="/">Bookmarks</span>
+  <span class="spacer"></span>
+
+  @if (!authenticationService.isTokenExpired()) {
+  @if (postsService.watchLater().length > 0) {
+  <button mat-icon-button>
+    <mat-icon [matBadge]="postsService.watchLater().length">queue_play_next</mat-icon>
+  </button>
+  }
+  <button mat-icon-button routerLink="/create"><mat-icon>add</mat-icon></button>
+  <button mat-icon-button routerLink="/tags"><mat-icon>label_outline</mat-icon></button>
+  <button mat-icon-button routerLink="/creators"><mat-icon>group</mat-icon></button>
+  <button mat-icon-button (click)="logout()"><mat-icon>logout</mat-icon></button>
+  } @else {
+  <button mat-icon-button routerLink="/login"><mat-icon>login</mat-icon></button>
+  }
+
+</mat-toolbar>
+<div class="container">
+  @if (authenticationService.isFetchingData()) {
+  <div class="loading">
+    <mat-spinner></mat-spinner>
+    Loading bookmarks ...
+  </div>
+  } @else {
+  <router-outlet />
+  }
+</div>
+<mat-divider></mat-divider>
+<footer>
+  <div>
+    <a routerLink="/privacy-policy">Privacy Policy</a>
+    <span> | </span>
+    <a routerLink="/imprint">Imprint</a>
+    @if (!authenticationService.isTokenExpired()) {
+    <span> | </span>
+    <a class="delete-account" (click)="deleteAccount()">Delete Account</a>
+    }
+  </div>
+  <a>© {{year}}, Markus Wieland</a>
+</footer>

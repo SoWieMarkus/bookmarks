@@ -1,0 +1,71 @@
+@if (preparing()) {
+<div class="loading">
+  <mat-spinner></mat-spinner>
+</div>
+} @else {
+<a routerLink="/import">Import Backlog</a>
+<h2>{{pageTitleText()}}</h2>
+
+<form class="form">
+
+  @if (thumbnailUrl()) {
+  <img [src]="thumbnailUrl()" class="thumbnail" alt="The thumbnail of the post." />
+  }
+  @if (loadingUrl()) {
+  <div class="loading-url">
+    <mat-spinner></mat-spinner>
+  </div>
+  }
+
+  <mat-form-field appearance="outline">
+    <mat-label>Url</mat-label>
+    <input matInput type="text" [(ngModel)]="attributeUrl" [ngModelOptions]="{standalone: true}" />
+    @if (!loadingUrl()) {
+    <button mat-icon-button matSuffix (click)="loadFromUrl(attributeUrl())" [attr.aria-label]="'Fetch'">
+      <mat-icon>search</mat-icon>
+    </button>
+    }
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Title</mat-label>
+    <input matInput type="text" [(ngModel)]="attributeTitle" [ngModelOptions]="{standalone: true}" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <input matInput type="text" [(ngModel)]="attributeDescription" [ngModelOptions]="{standalone: true}" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Duration</mat-label>
+    <input matInput type="number" [(ngModel)]="attributeDuration" [ngModelOptions]="{standalone: true}" />
+
+    @if (attributeDuration() > 0) {
+    <span matTextSuffix>{{attributeDuration() | duration}}</span>
+    }
+
+  </mat-form-field>
+
+  <mat-checkbox [(ngModel)]="attributeReadLater" [ngModelOptions]="{standalone: true}">
+    Read Later
+  </mat-checkbox>
+
+
+  <h3>Creators</h3>
+  <h3>Tags</h3>
+</form>
+
+
+
+
+<div class="fabs">
+  @if (mode() === "import") {
+  <button mat-mini-fab (click)="removeImportItem()"><mat-icon>close</mat-icon></button>
+  <button mat-mini-fab (click)="skipImportItem()"><mat-icon>skip_next</mat-icon></button>
+  }
+  <button mat-mini-fab (click)="commit()"><mat-icon>check</mat-icon></button>
+</div>
+
+}

@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>{{ titleText() }}</h2>
+<mat-dialog-content>
+
+  <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" class="file-input" />
+
+  @if (onFileSelectedEvent() === null) {
+  <img class="profile-image" (click)="fileInput.click()">
+  } @else {
+  <image-cropper class="image-cropper" [imageChangedEvent]="onFileSelectedEvent()" [maintainAspectRatio]="true"
+    [aspectRatio]="1 / 1" format="jpeg"></image-cropper>
+  }
+  <input [(ngModel)]=" creatorNameModel" />
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="undefined">Cancel</button>
+  <button mat-flat-button cdkFocusInitial>{{ confirmActionText() }}</button>
+</mat-dialog-actions>

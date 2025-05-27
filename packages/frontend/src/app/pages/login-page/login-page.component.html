@@ -1,0 +1,21 @@
+<div class="login-container">
+  <h1>Login</h1>
+  <p>You don't have an account yet? <a routerLink="/register">Register</a></p>
+
+  <form (submit)="login()" class="form">
+    <mat-form-field appearance="outline" class="username">
+      <mat-label>Username</mat-label>
+      <input matInput type="text" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="password">
+      <mat-label>Password</mat-label>
+      <input matInput [type]="passwordVisible() ? 'text' : 'password'" [(ngModel)]="password"
+        [ngModelOptions]="{standalone: true}" />
+      <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" [attr.aria-label]="'Hide password'">
+        <mat-icon>{{passwordVisible() ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <button [disabled]="isLoggingIn()" mat-flat-button (click)="login()">Login</button>
+  </form>
+
+</div>

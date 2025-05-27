@@ -1,0 +1,20 @@
+<h2>Import Backlog</h2>
+
+<mat-form-field appearance="outline" class="text-area">
+  <mat-label>Textarea</mat-label>
+  <textarea matInput placeholder="Add all the urls that you want to import and separate them with a new line.
+  e.g.
+  https:\\url1.com
+  https:\\url2.com" [disabled]="isUpdating()" rows="8" [(ngModel)]="backlogItemsToAdd">
+</textarea>
+</mat-form-field>
+
+<button [disabled]="isUpdating()" mat-flat-button (click)="addBacklogItems()">Add Backlog Items</button>
+
+<mat-list>
+  @for (item of importService.items(); track item.id) {
+  <mat-list-item routerLink="/create" [queryParams]="{ importId: item.id}">
+    {{ item.url }}
+  </mat-list-item>
+  }
+</mat-list>

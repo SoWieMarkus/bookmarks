@@ -1,0 +1,21 @@
+<h1>Creators</h1>
+
+<button mat-icon-button (click)="openAddCreatorDialog()"><mat-icon>add</mat-icon></button>
+
+<mat-list>
+  @for (creator of creatorsService.creators(); track creator) {
+  <mat-list-item>
+    <button mat-icon-button (click)="openEditCreatorDialog(creator)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button (click)="creatorsService.remove(creator.id)">
+      <mat-icon>delete</mat-icon>
+    </button>
+    {{ creator }}
+  </mat-list-item>
+  }
+</mat-list>
+
+@if (creatorsService.creators().length === 0) {
+<p>No creators available.</p>
+}

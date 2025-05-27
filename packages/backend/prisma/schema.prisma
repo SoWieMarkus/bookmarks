@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String            @id @default(uuid())
+  username     String            @unique
+  passwordHash String
+  createdAt    DateTime          @default(now())
+  tags         Tag[]
+  creators     Creator[]
+  posts        Post[]
+  imports      ImportQueueItem[]
+}
+
+model Creator {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  image     String?
+  createdAt DateTime @default(now())
+  post      Post[]   @relation("CreatorPosts")
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String?
+}
+
+model Tag {
+  id     String  @id @default(uuid())
+  title  String  @unique
+  post   Post[]  @relation("PostTags")
+  User   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String?
+}
+
+model Post {
+  createdAt   DateTime  @default(now())
+  id          String    @id @default(uuid())
+  title       String
+  description String?
+  thumbnail   String?
+  url         String    @unique
+  creators    Creator[] @relation("CreatorPosts")
+  tags        Tag[]     @relation("PostTags")
+  readLater   Boolean   @default(false)
+  User        User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String?
+  duration    Int? // Duration in seconds if post is a video or audio
+}
+
+model ImportQueueItem {
+  id        String   @id @default(uuid())
+  url       String   @unique
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String?
+  createdAt DateTime @default(now())
+}

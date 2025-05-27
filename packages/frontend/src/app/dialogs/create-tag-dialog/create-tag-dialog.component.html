@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>{{ titleText() }}</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="outline" class="username">
+    <mat-label>Tag Name</mat-label>
+    <input matInput [(ngModel)]="tagTitleModel" />
+  </mat-form-field>
+
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button [disabled]="isUploading()" mat-button [mat-dialog-close]="undefined">Cancel</button>
+  @if (isUploading()) {
+  <mat-spinner></mat-spinner>
+  } @else {
+  <button mat-flat-button cdkFocusInitial (click)="confirm()">{{ confirmActionText() }}</button>}
+
+</mat-dialog-actions>
