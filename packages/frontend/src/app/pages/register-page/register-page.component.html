@@ -11,7 +11,8 @@
       <mat-label>Password</mat-label>
       <input matInput [type]="passwordVisible() ? 'text' : 'password'" [(ngModel)]="password"
         [ngModelOptions]="{standalone: true}" [ngModelOptions]="{standalone: true}" />
-      <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" [attr.aria-label]="'Hide password'">
+      <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility()"
+        [attr.aria-label]="'Hide password'">
         <mat-icon>{{passwordVisible() ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
     </mat-form-field>
@@ -20,6 +21,6 @@
       <input matInput type="password" [(ngModel)]="passwordConfirm" [ngModelOptions]="{standalone: true}"
         [ngModelOptions]="{standalone: true}" />
     </mat-form-field>
-    <button [disabled]="isLoggingIn()" mat-flat-button (click)="register()">Register</button>
+    <button [disabled]="isLoggingIn()" mat-flat-button>Register</button>
   </form>
 </div>
