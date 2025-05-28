@@ -50,6 +50,7 @@ export class AuthenticationService {
     this.creatorService.reset();
     this.postsService.reset();
     this.importService.reset();
+    this.profileService.reset();
   }
 
   public isTokenExpired(): boolean {
