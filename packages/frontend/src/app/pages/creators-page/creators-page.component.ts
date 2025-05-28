@@ -6,10 +6,11 @@ import type { Creator } from '../../schemas/creator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-creator-page',
-  imports: [MatButtonModule, MatIconModule, MatListModule],
+  imports: [MatButtonModule, MatIconModule, MatListModule, RouterLink],
   templateUrl: './creators-page.component.html',
   styleUrl: './creators-page.component.scss'
 })

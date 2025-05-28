@@ -20,8 +20,10 @@ export class CreateTagDialog {
   protected readonly snackbar = inject(MatSnackBar);
   protected readonly tagsService = inject(TagsService);
   protected readonly reference = inject(MatDialogRef<CreateTagDialog>)
+
   protected readonly titleText = computed(() => this.existingTag === undefined ? "Add Tag" : "Edit Tag");
   protected readonly confirmActionText = computed(() => this.existingTag === undefined ? "Add" : "Save");
+
   protected readonly attributeTitle = model<string>(this.existingTag === undefined ? "" : this.existingTag.title);
   protected readonly isUploading = signal(false);
 

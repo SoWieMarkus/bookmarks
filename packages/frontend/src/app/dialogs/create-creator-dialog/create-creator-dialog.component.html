@@ -29,5 +29,9 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button [mat-dialog-close]="undefined">Cancel</button>
-  <button mat-flat-button cdkFocusInitial>{{ confirmActionText() }}</button>
+  @if (isUploading()) {
+  <mat-spinner></mat-spinner>
+  } @else {
+  <button mat-flat-button cdkFocusInitial (click)="confirm()">{{ confirmActionText() }}</button>
+  }
 </mat-dialog-actions>

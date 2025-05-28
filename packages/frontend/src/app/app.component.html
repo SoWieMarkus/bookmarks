@@ -6,7 +6,7 @@
   @if (!authenticationService.isTokenExpired()) {
   @if (postsService.watchLater().length > 0) {
   <button mat-icon-button routerLink="/watch-later">
-    <mat-icon [matBadge]="postsService.watchLater().length">queue_play_next</mat-icon>
+    <mat-icon aria-hidden="false" [matBadge]="postsService.watchLater().length">queue_play_next</mat-icon>
   </button>
   }
   <button mat-icon-button routerLink="/create"><mat-icon>add</mat-icon></button>

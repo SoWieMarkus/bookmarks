@@ -2,7 +2,7 @@ import { Component, computed, inject, model, type OnInit, signal } from '@angula
 import { ActivatedRoute, type Params, Router, RouterLink } from '@angular/router';
 import { PostsService } from '../../services/posts.service';
 import { ImportService } from '../../services/imports.service';
-import { set, z } from 'zod';
+import { z } from 'zod';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import type { Tag, Creator } from '../../schemas';
 import { MatDialog } from '@angular/material/dialog';
