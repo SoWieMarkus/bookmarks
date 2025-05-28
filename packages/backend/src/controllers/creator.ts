@@ -2,12 +2,12 @@ import type { RequestHandler } from "express";
 import createHttpError from "http-errors";
 import { Schema } from "@bookmarks/shared";
 import { database } from "../database";
-import { resizeImage } from "../utils";
+import { logger, resizeImage } from "../utils";
 
 export const addCreator: RequestHandler = async (request, response) => {
     const userId = request.userId;
     if (userId === undefined) {
-        throw createHttpError(401, "Uncreatorized. Please provide a valid token.");
+        throw createHttpError(401, "Unauthorized. Please provide a valid token.");
     }
 
     const { success, data, error } = Schema.creator.add.safeParse(request.body);
@@ -16,11 +16,14 @@ export const addCreator: RequestHandler = async (request, response) => {
         throw createHttpError(400, error.errors[0].message);
     }
 
-    const { name } = data;
+    const { name, image } = data;
+
+    const updateImage = image === null ? undefined : await resizeImage(image);
     const creator = await database.creator.create({
         data: {
             name,
-            userId
+            userId,
+            image: updateImage,
         },
     });
 
@@ -30,7 +33,7 @@ export const addCreator: RequestHandler = async (request, response) => {
 export const removeCreator: RequestHandler = async (request, response) => {
     const userId = request.userId;
     if (userId === undefined) {
-        throw createHttpError(401, "Uncreatorized. Please provide a valid token.");
+        throw createHttpError(401, "Unauthorized. Please provide a valid token.");
     }
 
     const creatorId = request.params.creatorId;
@@ -56,7 +59,7 @@ export const removeCreator: RequestHandler = async (request, response) => {
 export const getCreators: RequestHandler = async (request, response) => {
     const userId = request.userId;
     if (userId === undefined) {
-        throw createHttpError(401, "Uncreatorized. Please provide a valid token.");
+        throw createHttpError(401, "Unauthorized. Please provide a valid token.");
     }
 
     const { name } = Schema.creator.query.parse(request.query);
@@ -77,7 +80,7 @@ export const getCreators: RequestHandler = async (request, response) => {
 export const editCreator: RequestHandler = async (request, response) => {
     const userId = request.userId;
     if (userId === undefined) {
-        throw createHttpError(401, "Uncreatorized. Please provide a valid token.");
+        throw createHttpError(401, "Unauthorized. Please provide a valid token.");
     }
 
     const creatorId = request.params.creatorId;
@@ -92,15 +95,7 @@ export const editCreator: RequestHandler = async (request, response) => {
     }
 
     const { name, image } = data;
-
-    let updateImage = undefined;
-    if (image === null) {
-        updateImage = null;
-    }
-    if (image !== null && image !== undefined) {
-        updateImage = await resizeImage(image);
-    }
-
+    const updateImage = image === null ? undefined : await resizeImage(image);
     const creator = await database.creator.update({
         where: { id: creatorId, userId },
         data: { name, image: updateImage },

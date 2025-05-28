@@ -13,7 +13,7 @@ export class CreatorsService {
 
   public readonly creators = signal<Creator[]>([]);
 
-  public async add(name: string, image?: string) {
+  public async add(name: string, image: string | null) {
     const creator = await this.backend.creators.add({ name, image });
     this.creators.update((currentCreators) => [...currentCreators, creator].sort((a, b) => a.name.localeCompare(b.name)));
     return creator;
@@ -33,8 +33,8 @@ export class CreatorsService {
     );
   }
 
-  public async edit(creatorId: string, name: string) {
-    const creator = await this.backend.creators.edit(creatorId, { name });
+  public async edit(creatorId: string, name: string, image: string | null) {
+    const creator = await this.backend.creators.edit(creatorId, { name, image });
     this.creators.update((currentCreators) => currentCreators.map((a) => (a.id === creator.id ? creator : a)));
 
     // replace the creator in all the posts

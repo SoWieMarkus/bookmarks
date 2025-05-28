@@ -9,7 +9,7 @@
 <form class="form">
 
   @if (thumbnailUrl()) {
-  <img [src]="thumbnailUrl()" class="thumbnail" alt="The thumbnail of the post." />
+  <img [src]="thumbnailUrl()" alt="The thumbnail of the post." />
   }
   @if (loadingUrl()) {
   <div class="loading-url">

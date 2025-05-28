@@ -355,7 +355,7 @@ export class CreatePostPage implements OnInit {
       let creator = this.creatorsService
         .creators()
         .find((creator) => creator.name.toLowerCase() === value.toLowerCase());
-      creator ??= await this.creatorsService.add(value);
+      creator ??= await this.creatorsService.add(value, null);
       this.attributeCreators.update((creators) => [...creators, creator]);
     }
     event.chipInput?.clear();

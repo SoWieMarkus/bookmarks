@@ -1,14 +1,17 @@
 <h2 mat-dialog-title>{{ titleText() }}</h2>
 <mat-dialog-content>
-
+  @if (isUploading()) {
+  <mat-spinner></mat-spinner>
+  } @else {
   <div class="container">
     <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" class="file-input" />
 
-    @if (onFileSelectedEvent() === null) {
+    @if (onFileSelectedEvent() === null && draftImageUrl() === undefined) {
     <img class="profile-image" [matMenuTriggerFor]="menu" alt="Profile of the creator" [src]="image()" />
     } @else {
-    <image-cropper class="image-cropper" [imageChangedEvent]="onFileSelectedEvent()" [maintainAspectRatio]="true"
-      [aspectRatio]="1 / 1" format="jpeg"></image-cropper>
+    <image-cropper class="image-cropper" [roundCropper]="true" [imageChangedEvent]="onFileSelectedEvent()"
+      [imageURL]="draftImageUrl()" [maintainAspectRatio]="true" [aspectRatio]="1 / 1" format="jpeg"
+      (imageCropped)="imageCropped($event)"></image-cropper>
     }
     <mat-form-field appearance="outline" class="username">
       <mat-label>Creator Name</mat-label>
@@ -20,12 +23,13 @@
         <mat-icon>upload</mat-icon>
         <span>Upload File</span>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item (click)="loadPictureFromUrl()">
         <mat-icon>cloud_queue</mat-icon>
         <span>From Url</span>
       </button>
     </mat-menu>
   </div>
+  }
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button [mat-dialog-close]="undefined">Cancel</button>

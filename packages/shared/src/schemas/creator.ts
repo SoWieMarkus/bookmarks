@@ -7,7 +7,7 @@ const CreatorNameSchema = z.string()
 
 export const add = z.object({
     name: CreatorNameSchema,
-    image: z.string().base64url().optional().nullable(), // null means remove image, undefined means keep it unchanged
+    image: z.string().nullable(),
 });
 
 export const query = z.object({

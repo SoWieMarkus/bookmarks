@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { ImageCropperComponent } from 'ngx-image-cropper';
+import { type ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
 import { type Creator, CreatorSchema } from '../../schemas';
 import { CreatorsService } from '../../services';
 import { MatMenuModule } from '@angular/material/menu';
@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { z } from 'zod';
 @Component({
   selector: 'app-create-creator-dialog',
   imports: [MatProgressSpinnerModule, MatFormFieldModule, MatMenuModule, MatDialogModule, FormsModule, ImageCropperComponent, MatIconModule, MatButtonModule, MatInputModule],
@@ -28,8 +29,12 @@ export class CreateCreatorDialog {
   protected readonly confirmActionText = computed(() => this.existingCreator === undefined ? "Add" : "Save");
 
   protected readonly attributeName = model<string>(this.existingCreator === undefined ? "" : this.existingCreator.name);
-  protected readonly attributeImage = signal<string | null>(null);
+  protected readonly attributeImage = signal<string | null>(this.existingCreator === undefined ? null : this.existingCreator.image);
+
+  // tells if we are currently uploading the changes to/the new creator
   protected readonly isUploading = signal(false);
+
+  protected readonly draftImageUrl = signal<string | undefined>(undefined);
 
   protected readonly onFileSelectedEvent = signal<Event | null>(null);
   protected readonly image = computed(() => {
@@ -47,21 +52,22 @@ export class CreateCreatorDialog {
 
   protected async confirm() {
     const name = this.attributeName();
+    const image = this.attributeImage();
 
     try {
       this.reference.disableClose = true;
       if (this.existingCreator === undefined) {
-        await this.creatorsService.add(name);
+        await this.creatorsService.add(name, image);
         this.reference.close();
         return;
       }
 
-      if (this.existingCreator.name === name) {
+      if (this.existingCreator.name === name && this.existingCreator.image === image) {
         this.reference.close();
         return;
       }
 
-      await this.creatorsService.edit(this.existingCreator.id, name);
+      await this.creatorsService.edit(this.existingCreator.id, name, image);
       this.reference.close();
 
     } catch (error) {
@@ -77,6 +83,33 @@ export class CreateCreatorDialog {
       this.reference.disableClose = false;
       this.isUploading.set(false);
     }
+  }
+
+  protected loadPictureFromUrl() {
+    const url = prompt("Enter the URL of the image:");
+    if (!url) return;
+    const { success, data, error } = z.string().url().safeParse(url);
+    if (!success) {
+      this.snackbar.open(`Invalid URL: ${error.message}`, "Close", { duration: 3000 });
+      return;
+    }
+
+    this.draftImageUrl.set(data);
+  }
+
+  protected imageCropped(event: ImageCroppedEvent) {
+    if (!event.objectUrl) return;
+
+    const blob = event.blob;
+    if (blob === null || blob === undefined) return;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+
+    reader.onloadend = () => {
+      const base64Image = reader.result as string;
+      this.attributeImage.set(base64Image);
+    };
   }
 
 }
