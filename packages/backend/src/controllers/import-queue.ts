@@ -18,9 +18,16 @@ export const addLinksToImportQueue: RequestHandler = async (request, response) =
         where: { userId, url: { in: data } }
     });
 
-    const items = await database.importQueueItem.createMany({
+    await database.importQueueItem.createMany({
         data: data.map(url => ({ url, userId }))
     })
+
+    const items = await database.importQueueItem.findMany({
+        where: {
+            userId,
+            url: { in: data }
+        }
+    });
 
     response.status(201).json(items);
 }

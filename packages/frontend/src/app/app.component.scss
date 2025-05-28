@@ -1,11 +1,25 @@
+@use '@angular/material' as mat;
+
 mat-toolbar {
+  @include mat.toolbar-overrides((
+    container-background-color: var(--mat-sys-primary-container),
+    container-text-color: var(--mat-sys-on-surface),
+  ));
   position: sticky;
   top: 0;
   z-index: 1000;
+
+  mat-icon {
+    color: var(--mat-sys-primary);
+  }
 }
 
 .title {
 	cursor: pointer;
+  font-family: "Dancing Script", "Times New Roman", Times, serif;
+  font-size: 2rem;
+  color: var(--mat-sys-primary);
+  font-weight: bold;
 }
 
 .spacer {

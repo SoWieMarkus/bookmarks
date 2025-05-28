@@ -11,7 +11,6 @@ router.delete(
     CreatorController.removeCreator,
 );
 router.get("/", requiresAuthentication, CreatorController.getCreators);
-router.get("/:creatorId", requiresAuthentication, CreatorController.getCreator);
 router.post("/edit/:creatorId", requiresAuthentication, CreatorController.editCreator);
 
 export default router;

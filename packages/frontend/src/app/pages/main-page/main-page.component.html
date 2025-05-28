@@ -1,1 +1,13 @@
-<p>main-page works!</p>
+<h2>Bookmarks</h2>
+<div class="grid">
+  @for (post of posts(); track post.id) {
+  <app-post [post]="post"></app-post>
+  }
+  <div class="add" routerLink="/create">
+    <button mat-icon-button><mat-icon>add</mat-icon></button>
+  </div>
+</div>
+<div class="fabs">
+  <button mat-mini-fab (click)="shuffleBookmarks()"><mat-icon>shuffle</mat-icon></button>
+  <button mat-mini-fab (click)="openFilterDialog()"><mat-icon>sort</mat-icon></button>
+</div>

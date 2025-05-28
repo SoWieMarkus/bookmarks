@@ -9,6 +9,7 @@ import { CreatePostPage } from './pages/create-post-page/create-post-page.compon
 import { MainPage } from './pages/main-page/main-page.component';
 import { AuthenticationGuard } from './authentication.guard';
 import { ImportPage } from './pages/import-page/import-page.component';
+import { CreatorDetailsPage } from './pages/creator-details-page/creator-details-page.component';
 
 export const routes: Routes = [
   {
@@ -26,6 +27,12 @@ export const routes: Routes = [
   {
     path: "creators",
     component: CreatorsPage,
+    title: "Bookmarks: Creators",
+    canActivate: [AuthenticationGuard]
+  },
+  {
+    path: "creator/:creatorId",
+    component: CreatorDetailsPage,
     title: "Bookmarks: Creators",
     canActivate: [AuthenticationGuard]
   },

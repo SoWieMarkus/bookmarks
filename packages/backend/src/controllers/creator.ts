@@ -27,40 +27,6 @@ export const addCreator: RequestHandler = async (request, response) => {
     response.status(201).json(creator);
 }
 
-export const getCreator: RequestHandler = async (request, response) => {
-    const userId = request.userId;
-    if (userId === undefined) {
-        throw createHttpError(401, "Uncreatorized. Please provide a valid token.");
-    }
-
-    const creatorId = request.params.creatorId;
-    if (!creatorId) {
-        throw createHttpError(400, "Creator ID is required.");
-    }
-
-    const creator = await database.creator.findUnique({
-        where: { id: creatorId, userId },
-        include: {
-            post: {
-                include: {
-                    tags: {
-                        where: { userId }
-                    },
-                    creators: {
-                        where: { userId }
-                    }
-                }
-            }
-        }
-    });
-
-    if (!creator) {
-        throw createHttpError(404, "Creator not found.");
-    }
-
-    response.status(200).json(creator);
-}
-
 export const removeCreator: RequestHandler = async (request, response) => {
     const userId = request.userId;
     if (userId === undefined) {

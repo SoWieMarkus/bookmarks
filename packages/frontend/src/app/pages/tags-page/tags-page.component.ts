@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTagDialog } from '../../dialogs/create-tag-dialog/create-tag-dialog.component';
-import type { Tag } from '../../models/tag';
+import type { Tag } from '../../schemas';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

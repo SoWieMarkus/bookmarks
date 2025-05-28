@@ -1,1 +1,15 @@
-<h1>Watch Later</h1>
+<h2>Watch Later</h2>
+<div class="grid">
+  @for (post of posts(); track post.id) {
+  <app-post [post]="post"></app-post>
+  }
+</div>
+@if (posts().length === 0) {
+<div class="empty">
+  <p>No bookmarks found. Add bookmarks or adjust the filter.</p>
+</div>
+
+}
+<div class="fabs">
+  <button mat-mini-fab (click)="shuffleBookmarks()"><mat-icon>shuffle</mat-icon></button>
+</div>

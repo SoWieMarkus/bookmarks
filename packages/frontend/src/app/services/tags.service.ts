@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from "@angular/core";
-import type { Tag } from "../models/tag";
+import type { Tag } from "../schemas/tag";
 import { BackendService } from "./backend.service";
 import { PostsService } from "./posts.service";
 
@@ -15,6 +15,7 @@ export class TagsService {
   public async add(title: string) {
     const tag = await this.backend.tags.add({ title });
     this.tags.update((currentTags) => [...currentTags, tag].sort((a, b) => a.title.localeCompare(b.title)));
+    return tag;
   }
 
   public async remove(tagId: string) {
@@ -48,7 +49,6 @@ export class TagsService {
   public async initialize() {
     const tags = await this.backend.tags.initialize();
     this.tags.set(tags);
-    console.log("Tags initialized:", tags);
   }
 
   public reset() {

@@ -1,11 +1,10 @@
-import { Component, computed, inject, model, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
+import { Component, computed, inject, model, type OnInit, signal } from '@angular/core';
+import { ActivatedRoute, type Params, Router, RouterLink } from '@angular/router';
 import { PostsService } from '../../services/posts.service';
 import { ImportService } from '../../services/imports.service';
 import { z } from 'zod';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Tag } from '../../models/tag';
-import { Creator } from '../../models/creator';
+import type { Tag, Creator } from '../../schemas';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTagDialog } from '../../dialogs/create-tag-dialog/create-tag-dialog.component';
 import { CreateCreatorDialog } from '../../dialogs/create-creator-dialog/create-creator-dialog.component';
@@ -18,18 +17,27 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DurationPipe } from '../../pipes/duration.pipe';
+import { type MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule, type MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { CreatorsService, TagsService } from '../../services';
+import { COMMA, ENTER } from "@angular/cdk/keycodes";
+
 
 @Component({
   selector: 'app-create-post-page',
-  imports: [DurationPipe, RouterLink, MatButtonModule, MatIconModule, MatFormFieldModule, FormsModule, MatDividerModule, MatInputModule, MatCheckboxModule, MatProgressSpinnerModule],
+  imports: [MatAutocompleteModule, MatChipsModule, DurationPipe, RouterLink, MatButtonModule, MatIconModule, MatFormFieldModule, FormsModule, MatDividerModule, MatInputModule, MatCheckboxModule, MatProgressSpinnerModule],
   templateUrl: './create-post-page.component.html',
   styleUrl: './create-post-page.component.scss'
 })
 export class CreatePostPage implements OnInit {
 
+  protected readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+
+  protected readonly creatorsService = inject(CreatorsService);
   private readonly dialog = inject(MatDialog);
   private readonly snackbar = inject(MatSnackBar);
   private readonly postsService = inject(PostsService);
+  private readonly tagsService = inject(TagsService);
   private readonly importService = inject(ImportService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
@@ -42,6 +50,25 @@ export class CreatePostPage implements OnInit {
   protected readonly attributeTags = model<Tag[]>([]);
   protected readonly attributeCreators = model<Creator[]>([]);
   protected readonly thumbnailUrl = signal<string | null>(null);
+
+  // logic for filtering creators based on user input
+  protected readonly currentCreator = model("");
+  protected readonly filteredCreators = computed(() => {
+    const currentCreator = this.currentCreator().toLowerCase();
+    return currentCreator
+      ? this.creatorsService.creators().filter(creator => creator.name.toLowerCase().includes(currentCreator))
+      : this.creatorsService.creators();
+  });
+
+  // logic for filtering tags based on user input
+  protected readonly currentTag = model("");
+  protected readonly filteredTags = computed(() => {
+    const currentTag = this.currentTag().toLowerCase();
+    return currentTag
+      ? this.tagsService.tags().filter(tag => tag.title.toLowerCase().includes(currentTag))
+      : this.tagsService.tags();
+  });
+
 
   protected readonly mode = model<"create" | "edit" | "import">("create");
 
@@ -91,7 +118,10 @@ export class CreatePostPage implements OnInit {
   private async initialize(params: Params) {
     this.preparing.set(true);
     this.clear();
+
+    // biome-ignore lint/complexity/useLiteralKeys: Doesn't work here
     const postId = params["postId"];
+    // biome-ignore lint/complexity/useLiteralKeys: Doesn't work here
     const importId = params["importId"];
 
     if (postId !== undefined && this.loadExistingPost(postId)) {
@@ -126,6 +156,8 @@ export class CreatePostPage implements OnInit {
     this.attributeUrl.set(post.url);
     this.attributeDuration.set(post.duration ?? 0);
     this.thumbnailUrl.set(post.thumbnail);
+    this.attributeCreators.set(post.creators);
+    this.attributeTags.set(post.tags);
     return true;
   }
 
@@ -264,7 +296,13 @@ export class CreatePostPage implements OnInit {
 
     if (confirm("Are you sure you want to remove this import item? This action cannot be undone.")) {
       this.importService.remove(id);
-      this.router.navigate(['/import']);
+      const next = this.importService.getNext();
+      if (next === null) {
+        return;
+      }
+      this.router.navigate(['/create'], {
+        queryParams: { importId: next.id },
+      });
     }
   }
 
@@ -295,4 +333,58 @@ export class CreatePostPage implements OnInit {
     this.thumbnailUrl.set(null);
     this.id.set(null);
   }
+
+
+  protected removeCreator(creator: Creator) {
+    this.attributeCreators.set(this.attributeCreators().filter(c => c.id !== creator.id));
+  }
+
+  protected selectCreator(event: MatAutocompleteSelectedEvent) {
+    if (this.attributeCreators().some(creator => creator.id === event.option.value.id)) {
+      this.currentCreator.set("");
+      return;
+    }
+    this.attributeCreators.update((creators) => [...creators, event.option.value]);
+    event.option.deselect();
+    this.currentCreator.set("");
+  }
+
+  protected async addCreator(event: MatChipInputEvent) {
+    const value = (event.value ?? "").trim();
+    if (value) {
+      let creator = this.creatorsService
+        .creators()
+        .find((creator) => creator.name.toLowerCase() === value.toLowerCase());
+      creator ??= await this.creatorsService.add(value);
+      this.attributeCreators.update((creators) => [...creators, creator]);
+    }
+    this.currentCreator.set("");
+  }
+
+  protected removeTag(tag: Tag) {
+    this.attributeTags.set(this.attributeTags().filter(t => t.id !== tag.id));
+  }
+
+  protected selectTag(event: MatAutocompleteSelectedEvent) {
+    if (this.attributeTags().some(tag => tag.id === event.option.value.id)) {
+      this.currentTag.set("");
+      return;
+    }
+    this.attributeTags.update((tags) => [...tags, event.option.value]);
+    event.option.deselect();
+    this.currentTag.set("");
+  }
+
+  protected async addTag(event: MatChipInputEvent) {
+    const value = (event.value ?? "").trim();
+    if (value) {
+      let tag = this.tagsService
+        .tags()
+        .find((tag) => tag.title.toLowerCase() === value.toLowerCase());
+      tag ??= await this.tagsService.add(value);
+      this.attributeTags.update((tags) => [...tags, tag]);
+    }
+    this.currentTag.set("");
+  }
+
 }

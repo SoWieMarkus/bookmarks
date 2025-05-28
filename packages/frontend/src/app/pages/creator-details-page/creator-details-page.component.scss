@@ -1,0 +1,35 @@
+.profile-image-container {
+    text-align: center;
+    cursor: pointer;
+    position: relative; // Add this to allow absolute positioning inside
+}
+
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ccc;
+}
+
+.pen-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 6px;
+    display: none;
+    pointer-events: none; // Optional: so it doesn't block image hover
+}
+
+.profile-image-container:hover .pen-icon {
+    display: block;
+}
+
+.grid {
+  margin-top: 2rem;
+}

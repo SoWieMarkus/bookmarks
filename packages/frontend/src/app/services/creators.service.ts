@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from "@angular/core";
-import type { Creator } from "../models/creator";
+import type { Creator } from "../schemas/creator";
 import { BackendService } from "./backend.service";
 import { PostsService } from "./posts.service";
 
@@ -13,9 +13,10 @@ export class CreatorsService {
 
   public readonly creators = signal<Creator[]>([]);
 
-  public async add(name: string) {
-    const creator = await this.backend.creators.add({ name });
+  public async add(name: string, image?: string) {
+    const creator = await this.backend.creators.add({ name, image });
     this.creators.update((currentCreators) => [...currentCreators, creator].sort((a, b) => a.name.localeCompare(b.name)));
+    return creator;
   }
 
   public async remove(creatorId: string) {
@@ -53,6 +54,14 @@ export class CreatorsService {
 
   public reset() {
     this.creators.set([]);
+  }
+
+  public image(creator: Creator): string {
+    return creator.image ?? "default.png"
+  }
+
+  public get(creatorId: string): Creator | null {
+    return this.creators().find((creator) => creator.id === creatorId) ?? null;
   }
 
 }

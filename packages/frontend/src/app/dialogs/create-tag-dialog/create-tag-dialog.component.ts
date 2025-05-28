@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { TagsService } from '../../services/tags.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { type Tag, TagSchema } from '../../schemas';
 
 @Component({
   selector: 'app-create-tag-dialog',
@@ -15,17 +16,22 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   styleUrl: './create-tag-dialog.component.scss'
 })
 export class CreateTagDialog {
-  protected readonly existingTag = inject(MAT_DIALOG_DATA);
+  protected readonly existingTag = inject<Tag | undefined>(MAT_DIALOG_DATA);
   protected readonly snackbar = inject(MatSnackBar);
   protected readonly tagsService = inject(TagsService);
   protected readonly reference = inject(MatDialogRef<CreateTagDialog>)
   protected readonly titleText = computed(() => this.existingTag === undefined ? "Add Tag" : "Edit Tag");
   protected readonly confirmActionText = computed(() => this.existingTag === undefined ? "Add" : "Save");
-  protected readonly tagTitleModel = model<string>(this.existingTag === undefined ? "" : this.existingTag.title);
+  protected readonly attributeTitle = model<string>(this.existingTag === undefined ? "" : this.existingTag.title);
   protected readonly isUploading = signal(false);
 
+  constructor() {
+    // Parse the existing tag data for type safety
+    TagSchema.optional().parse(this.existingTag);
+  }
+
   public async confirm() {
-    const title = this.tagTitleModel();
+    const title = this.attributeTitle();
 
     try {
       this.reference.disableClose = true;

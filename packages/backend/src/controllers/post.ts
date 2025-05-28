@@ -151,6 +151,7 @@ export const removePost: RequestHandler = async (request, response) => {
 
     const post = await database.post.delete({
         where: { id: postId, userId },
+        include: { creators: { where: { userId } }, tags: { where: { userId } } }
     });
 
     response.status(200).json(post);

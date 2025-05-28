@@ -5,9 +5,21 @@
 .profile-image {
   width: 100px;
   height: 100px;
+  border: 3px solid #ccc;
+  border-radius: 50%;
 }
 
 .image-cropper {
   box-sizing: border-box;
   width: 50%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 2rem;
 }

@@ -54,7 +54,56 @@
 
 
   <h3>Creators</h3>
+  <mat-form-field appearance="outline">
+    <mat-label>Edit Creators</mat-label>
+
+    <mat-chip-grid #chipGridCreator aria-label="Tag selection">
+      @for (creator of attributeCreators(); track creator.id) {
+      <mat-chip-row (removed)="removeCreator(creator)">
+        <img matChipAvatar [src]="creatorsService.image(creator)" alt="Thumbnail" />
+        {{creator.name}}
+        <button matChipRemove [attr.aria-label]="'remove ' + creator.name">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+      }
+    </mat-chip-grid>
+
+    <input matInput name="creator" placeholder="Enter Creator..." [(ngModel)]="currentCreator"
+      [matChipInputFor]="chipGridCreator" [matAutocomplete]="autoCreator"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addCreator($event)" />
+    <mat-autocomplete #autoCreator="matAutocomplete" (optionSelected)="selectCreator($event)">
+      @for (creator of filteredCreators(); track creator.id) {
+      <mat-option [value]="creator">{{creator.name}}</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+
   <h3>Tags</h3>
+  <mat-form-field appearance="outline">
+    <mat-label>Edit Tags</mat-label>
+
+    <mat-chip-grid #chipGridTag aria-label="Tag selection">
+      @for (tag of attributeTags(); track tag.id) {
+      <mat-chip-row (removed)="removeTag(tag)">
+        {{tag.title}}
+        <button matChipRemove [attr.aria-label]="'remove ' + tag.title">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+
+      }
+    </mat-chip-grid>
+
+    <input matInput name="tag" placeholder="Enter Tag ..." [(ngModel)]="currentTag" [matChipInputFor]="chipGridTag"
+      [matAutocomplete]="autoTag" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (matChipInputTokenEnd)="addTag($event)" />
+    <mat-autocomplete #autoTag="matAutocomplete" (optionSelected)="selectTag($event)">
+      @for (tag of filteredTags(); track tag.id) {
+      <mat-option [value]="tag">{{tag.title}}</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
 </form>
 
 

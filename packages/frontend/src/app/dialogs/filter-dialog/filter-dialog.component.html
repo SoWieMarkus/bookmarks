@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Filter</h2>
+<mat-dialog-content>
+  <h3>Tags</h3>
+
+  @if (tagsService.tags().length === 0) {
+  <div class="empty">No tags available.</div>
+  } @else {
+  <mat-chip-set>
+    @for (tag of tagsService.tags(); track tag.id) {
+    <mat-chip-option (click)="selectTag(tag)" [selected]="isTagSelected(tag)">
+      {{ tag.title }}
+    </mat-chip-option>
+    }
+  </mat-chip-set>
+  }
+  <h3>Creators</h3>
+  @if (tagsService.tags().length === 0) {
+  <div class="empty">No tags available.</div>
+  } @else {
+  <mat-chip-set>
+    @for (creator of creatorsService.creators(); track creator.id) {
+    <mat-chip-option (click)="selectCreator(creator)" [selected]="isCreatorSelected(creator)">
+      <img matChipAvatar [src]="creatorsService.image(creator)" alt="Creator Avatar" />
+      {{creator.name}}
+    </mat-chip-option>
+    }
+  </mat-chip-set>
+  }
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="undefined">Cancel</button>
+  <button mat-button (click)="reset()">Reset</button>
+  <button mat-flat-button cdkFocusInitial (click)="apply()">Apply</button>
+</mat-dialog-actions>

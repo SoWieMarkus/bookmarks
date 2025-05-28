@@ -1,10 +1,11 @@
 <mat-toolbar color="secondary">
+  <button mat-icon-button routerLink="/"><mat-icon>bookmark</mat-icon></button>
   <span class="title" routerLink="/">Bookmarks</span>
   <span class="spacer"></span>
 
   @if (!authenticationService.isTokenExpired()) {
   @if (postsService.watchLater().length > 0) {
-  <button mat-icon-button>
+  <button mat-icon-button routerLink="/watch-later">
     <mat-icon [matBadge]="postsService.watchLater().length">queue_play_next</mat-icon>
   </button>
   }
@@ -36,6 +37,10 @@
     @if (!authenticationService.isTokenExpired()) {
     <span> | </span>
     <a class="delete-account" (click)="deleteAccount()">Delete Account</a>
+    }
+    @if (profileService.user() !== null) {
+    <span> | </span>
+    <span>Logged in as {{profileService.user()?.username}}</span>
     }
   </div>
   <a>© {{year}}, Markus Wieland</a>

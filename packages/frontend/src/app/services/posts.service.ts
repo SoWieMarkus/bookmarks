@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, signal } from "@angular/core";
-import type { Post, PostTemplate } from "../models/post";
+import type { Post, PostTemplate } from "../schemas/post";
 import { BackendService } from "./backend.service";
 import type { Schema } from "@bookmarks/shared";
 import type { z } from "zod";
@@ -11,6 +11,7 @@ export class PostsService {
 
   private readonly backend = inject(BackendService);
   public readonly posts = signal<Post[]>([]);
+
   public readonly watchLater = computed(() => {
     return this.posts().filter((post) => post.readLater);
   });
@@ -47,4 +48,16 @@ export class PostsService {
     return await this.backend.posts.url({ url });
   }
 
+  public async queue(postId: string) {
+    const post = this.get(postId);
+    if (!post) {
+      throw new Error(`Post with ID ${postId} not found`);
+    }
+    const updatedPost = await this.backend.posts.queue(postId);
+    this.posts.update((currentPosts) => currentPosts.map((p) => (p.id === updatedPost.id ? updatedPost : p)));
+  }
+
+  public getByCreator(creatorId: string): Post[] {
+    return this.posts().filter((post) => post.creators.some((creator) => creator.id === creatorId));
+  }
 }

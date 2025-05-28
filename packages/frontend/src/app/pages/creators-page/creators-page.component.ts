@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CreatorsService } from '../../services/creators.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateCreatorDialog } from '../../dialogs/create-creator-dialog/create-creator-dialog.component';
-import type { Creator } from '../../models/creator';
+import type { Creator } from '../../schemas/creator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -30,6 +30,13 @@ export class CreatorsPage {
       data: creator,
       closeOnNavigation: true,
     });
+  }
+
+  protected remove(creator: Creator) {
+    if (!confirm('Are you sure you want to delete this creator? This action cannot be undone.')) {
+      return;
+    }
+    this.creatorsService.remove(creator.id);
   }
 
 

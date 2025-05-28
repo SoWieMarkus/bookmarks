@@ -1,16 +1,31 @@
 <h2 mat-dialog-title>{{ titleText() }}</h2>
 <mat-dialog-content>
 
-  <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" class="file-input" />
+  <div class="container">
+    <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" class="file-input" />
 
-  @if (onFileSelectedEvent() === null) {
-  <img class="profile-image" (click)="fileInput.click()">
-  } @else {
-  <image-cropper class="image-cropper" [imageChangedEvent]="onFileSelectedEvent()" [maintainAspectRatio]="true"
-    [aspectRatio]="1 / 1" format="jpeg"></image-cropper>
-  }
-  <input [(ngModel)]=" creatorNameModel" />
+    @if (onFileSelectedEvent() === null) {
+    <img class="profile-image" [matMenuTriggerFor]="menu" alt="Profile of the creator" [src]="image()" />
+    } @else {
+    <image-cropper class="image-cropper" [imageChangedEvent]="onFileSelectedEvent()" [maintainAspectRatio]="true"
+      [aspectRatio]="1 / 1" format="jpeg"></image-cropper>
+    }
+    <mat-form-field appearance="outline" class="username">
+      <mat-label>Creator Name</mat-label>
+      <input matInput [(ngModel)]="attributeName" />
+    </mat-form-field>
 
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="fileInput.click()">
+        <mat-icon>upload</mat-icon>
+        <span>Upload File</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>cloud_queue</mat-icon>
+        <span>From Url</span>
+      </button>
+    </mat-menu>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button [mat-dialog-close]="undefined">Cancel</button>

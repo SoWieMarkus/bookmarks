@@ -1,21 +1,23 @@
 <h2>Tags</h2>
 
-<button mat-icon-button (click)="openAddTagDialog()"><mat-icon>add</mat-icon></button>
-
-<mat-list>
+<div class="grid">
   @for (tag of tagsService.tags(); track tag) {
-  <mat-list-item>
-    <button mat-icon-button (click)="openEditTagDialog(tag)">
-      <mat-icon>edit</mat-icon>
-    </button>
-    <button mat-icon-button (click)="removeTag(tag)">
-      <mat-icon>delete</mat-icon>
-    </button>
-    {{ tag.title }}
-  </mat-list-item>
+  <div class="item">
+    <span>{{ tag.title }}</span>
+    <div>
+      <button mat-icon-button (click)="openEditTagDialog(tag)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="removeTag(tag)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
   }
-</mat-list>
-
+</div>
 @if (tagsService.tags().length === 0) {
-<p>No tags available.</p>
+<div class="empty">No tags available.</div>
 }
+<div class="fab">
+  <button mat-mini-fab (click)="openAddTagDialog()"><mat-icon>add</mat-icon></button>
+</div>

@@ -1,21 +1,26 @@
-<h1>Creators</h1>
-
-<button mat-icon-button (click)="openAddCreatorDialog()"><mat-icon>add</mat-icon></button>
-
-<mat-list>
+<h2>Creators</h2>
+<div class="grid">
   @for (creator of creatorsService.creators(); track creator) {
-  <mat-list-item>
-    <button mat-icon-button (click)="openEditCreatorDialog(creator)">
-      <mat-icon>edit</mat-icon>
-    </button>
-    <button mat-icon-button (click)="creatorsService.remove(creator.id)">
-      <mat-icon>delete</mat-icon>
-    </button>
-    {{ creator }}
-  </mat-list-item>
+  <div class="item">
+    <div class="item-edit">
+      <img matListAvatar class="profile-image" [src]="creatorsService.image(creator)" alt="Creator Avatar" />
+      <span>{{ creator.name }}</span>
+    </div>
+    <div class="item-edit">
+      <button mat-icon-button (click)="openEditCreatorDialog(creator)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="remove(creator)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
   }
-</mat-list>
+</div>
 
 @if (creatorsService.creators().length === 0) {
-<p>No creators available.</p>
+<div class="empty">No creators available.</div>
 }
+<div class="fab">
+  <button mat-mini-fab (click)="openAddCreatorDialog()"><mat-icon>add</mat-icon></button>
+</div>

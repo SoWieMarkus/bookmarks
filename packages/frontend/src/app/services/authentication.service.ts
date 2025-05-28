@@ -4,6 +4,7 @@ import { TagsService } from "./tags.service";
 import { CreatorsService } from "./creators.service";
 import { PostsService } from "./posts.service";
 import { ImportService } from "./imports.service";
+import { ProfileService } from "./profile.service";
 
 @Injectable({
   providedIn: "root",
@@ -14,9 +15,11 @@ export class AuthenticationService {
   private readonly tagsService = inject(TagsService);
   private readonly creatorService = inject(CreatorsService);
   private readonly postsService = inject(PostsService);
-  private readonly importService = inject(ImportService); // Assuming you have an import queue service
+  private readonly importService = inject(ImportService);
+  private readonly profileService = inject(ProfileService);
 
   public readonly isFetchingData = signal(false);
+  public readonly username = signal<string | null>(null);
 
 
   public getToken(): string | null {
@@ -30,10 +33,14 @@ export class AuthenticationService {
 
   public async initialize() {
     this.isFetchingData.set(true);
-    await this.tagsService.initialize();
-    await this.creatorService.initialize();
-    await this.postsService.initialize();
-    await this.importService.initialize();
+
+    await Promise.all([
+      this.profileService.initialize(),
+      this.tagsService.initialize(),
+      this.creatorService.initialize(),
+      this.postsService.initialize(),
+      this.importService.initialize(),
+    ]);
     this.isFetchingData.set(false);
   }
 

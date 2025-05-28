@@ -2,13 +2,13 @@ import { inject, Injectable } from "@angular/core";
 import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import type { Schema } from "@bookmarks/shared";
-import { z } from "zod";
+import type { z } from "zod";
 import type { Observable } from "rxjs";
-import { TagSchema } from "../models/tag";
-import { CreatorSchema } from "../models/creator";
-import { AuthenticationSchema } from "../models/authentication";
-import { PostSchema, PostTemplateSchema } from "../models/post";
-import { ImportQueueItemSchema } from "../models/import-queue";
+import { TagSchema } from "../schemas/tag";
+import { CreatorSchema } from "../schemas/creator";
+import { AuthenticationSchema, UserSchema } from "../schemas/authentication";
+import { PostSchema, PostTemplateSchema } from "../schemas/post";
+import { ImportQueueItemSchema } from "../schemas/import-queue";
 
 const BACKEND_URL = environment.backend;
 
@@ -79,6 +79,7 @@ export class BackendService {
       remove: (postId: string) => this.delete(`posts/remove/${postId}`, PostSchema),
       initialize: () => this.get("posts", PostSchema.array()),
       url: (url: z.infer<typeof Schema.post.parseByUrl>) => this.post("posts/url", url, PostTemplateSchema),
+      queue: (postId: string) => this.post(`posts/queue/${postId}`, {}, PostSchema),
     }
   }
 
@@ -87,6 +88,7 @@ export class BackendService {
       login: (credentials: z.infer<typeof Schema.authentication.login>) => this.post("authentication/login", credentials, AuthenticationSchema),
       register: (credentials: z.infer<typeof Schema.authentication.register>) => this.post("authentication/register", credentials, AuthenticationSchema),
       remove: () => this.delete("authentication/remove"),
+      me: () => this.get("authentication/me", UserSchema),
     }
   }
 

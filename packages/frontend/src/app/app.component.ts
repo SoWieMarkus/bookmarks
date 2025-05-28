@@ -9,6 +9,7 @@ import { PostsService } from './services/posts.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { BackendService } from './services/backend.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ProfileService } from './services/profile.service';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class AppComponent implements OnInit {
   protected readonly authenticationService = inject(AuthenticationService);
+  protected readonly profileService = inject(ProfileService);
   protected readonly backendService = inject(BackendService);
   protected readonly postsService = inject(PostsService);
   protected readonly router = inject(Router);

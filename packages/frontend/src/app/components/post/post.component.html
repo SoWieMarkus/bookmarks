@@ -1,0 +1,38 @@
+<div class="post-container">
+  <div class="thumbnail">
+    <div class="fabs">
+      <button mat-icon-button routerLink="/create"
+        [queryParams]="{ postId: post().id}"><mat-icon>edit</mat-icon></button>
+      <button mat-icon-button (click)="remove()"><mat-icon>delete</mat-icon></button>
+      <button mat-icon-button (click)="queue()"><mat-icon>{{favoriteIcon()}}</mat-icon></button>
+
+    </div>
+    @if (post().thumbnail !== null) {
+    <img (click)="openUrl()" [src]="post().thumbnail" alt="thumbnail" class="thumb-img" />
+    } @else {
+    <div (click)="openUrl()" class="thumb-placeholder"></div>
+    }
+    @if (post().duration && post().duration! > 0) {
+    <span class="duration">
+      {{post().duration | duration}}
+    </span>
+    }
+
+  </div>
+  <div class="details" (click)="openUrl()">
+    <span class="title"> {{post().title | shorten: 100}} </span>
+    <mat-chip-set>
+      @for (creator of post().creators; track creator.id) {
+      <mat-chip [routerLink]="creatorLink(creator)">
+        <img matChipAvatar [src]="creatorService.image(creator)" alt="Thumbnail" />
+        {{creator.name}}
+      </mat-chip>
+      }
+      @for (tag of post().tags; track tag.id) {
+      <mat-chip>
+        {{tag.title}}
+      </mat-chip>
+      }
+    </mat-chip-set>
+  </div>
+</div>

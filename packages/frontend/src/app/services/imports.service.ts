@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from "@angular/core";
 import { BackendService } from "./backend.service";
-import { ImportQueueItem } from "../models/import-queue";
+import type { ImportQueueItem } from "../schemas/import-queue";
 
 @Injectable({
   providedIn: "root",
