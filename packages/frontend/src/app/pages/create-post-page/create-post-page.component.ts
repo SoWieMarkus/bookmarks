@@ -2,7 +2,7 @@ import { Component, computed, inject, model, type OnInit, signal } from '@angula
 import { ActivatedRoute, type Params, Router, RouterLink } from '@angular/router';
 import { PostsService } from '../../services/posts.service';
 import { ImportService } from '../../services/imports.service';
-import { z } from 'zod';
+import { set, z } from 'zod';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import type { Tag, Creator } from '../../schemas';
 import { MatDialog } from '@angular/material/dialog';
@@ -358,6 +358,7 @@ export class CreatePostPage implements OnInit {
       creator ??= await this.creatorsService.add(value);
       this.attributeCreators.update((creators) => [...creators, creator]);
     }
+    event.chipInput?.clear();
     this.currentCreator.set("");
   }
 
@@ -384,6 +385,7 @@ export class CreatePostPage implements OnInit {
       tag ??= await this.tagsService.add(value);
       this.attributeTags.update((tags) => [...tags, tag]);
     }
+    event.chipInput?.clear();
     this.currentTag.set("");
   }
 
