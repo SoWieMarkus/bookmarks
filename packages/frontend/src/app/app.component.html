@@ -32,6 +32,8 @@
 <footer>
   <div>
     <a href="mailto:wie.markus@web.de">Contact</a>
+    <a> | </a>
+    <a href="/" (click)="export()">Export</a>
     @if (!authenticationService.isTokenExpired()) {
     <span> | </span>
     <a class="delete-account" (click)="deleteAccount()">Delete Account</a>

@@ -50,4 +50,16 @@ export class AppComponent implements OnInit {
       });
     }
   }
+
+  protected export() {
+    const urls = this.postsService.posts().map((post) => post.url);
+    const blob = new Blob([urls.join("\n")], { type: "text/plain" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "bookmarks.txt";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
 }
