@@ -5,11 +5,7 @@ WORKDIR /usr/src/app
 COPY . .
 
 # Install dependencies
-RUN npm install && npm install -g @angular/cli
-
-# Build shared library
-RUN npm run build --workspace=@bookmarks/shared
-
+RUN npm install && npm install -g @angular/cli && npm run build --workspace=@bookmarks/shared
 
 # Build frontend (run ng build inside frontend workspace)
 WORKDIR /usr/src/app/packages/frontend
