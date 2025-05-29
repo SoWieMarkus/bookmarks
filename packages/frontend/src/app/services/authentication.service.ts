@@ -33,13 +33,20 @@ export class AuthenticationService {
 	public async initialize() {
 		this.isFetchingData.set(true);
 
-		await Promise.all([
-			this.profileService.initialize(),
-			this.tagsService.initialize(),
-			this.creatorService.initialize(),
-			this.postsService.initialize(),
-			this.importService.initialize(),
-		]);
+		try {
+			await Promise.all([
+				this.profileService.initialize(),
+				this.tagsService.initialize(),
+				this.creatorService.initialize(),
+				this.postsService.initialize(),
+				this.importService.initialize(),
+			]);
+		} catch (error) {
+			console.error("Error during initialization:", error);
+			this.removeToken();
+			this.router.navigate(["/login"]);
+		}
+
 		this.isFetchingData.set(false);
 	}
 
