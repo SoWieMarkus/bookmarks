@@ -2,7 +2,7 @@ import type { RequestHandler } from "express";
 import createHttpError from "http-errors";
 import { Schema } from "@bookmarks/shared";
 import { database } from "../database";
-import { logger, resizeImage } from "../utils";
+import { resizeImage } from "../utils";
 
 export const addCreator: RequestHandler = async (request, response) => {
     const userId = request.userId;

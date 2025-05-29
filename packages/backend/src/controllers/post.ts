@@ -86,6 +86,9 @@ export const getPosts: RequestHandler = async (request, response) => {
         include: {
             tags: { where: { userId } },
             creators: { where: { userId } }
+        },
+        orderBy: {
+            createdAt: "desc"
         }
     });
 

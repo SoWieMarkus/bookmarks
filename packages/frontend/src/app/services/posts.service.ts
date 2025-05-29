@@ -23,7 +23,7 @@ export class PostsService {
 
   public async add(post: z.infer<typeof Schema.post.add>) {
     const newPost = await this.backend.posts.add(post);
-    this.posts.update((currentPosts) => [...currentPosts, newPost]);
+    this.posts.update((currentPosts) => [newPost, ...currentPosts]);
   }
 
   public async edit(postId: string, post: z.infer<typeof Schema.post.edit>) {
