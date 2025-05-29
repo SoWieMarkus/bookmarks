@@ -31,9 +31,7 @@
 <mat-divider></mat-divider>
 <footer>
   <div>
-    <a routerLink="/privacy-policy">Privacy Policy</a>
-    <span> | </span>
-    <a routerLink="/imprint">Imprint</a>
+    <a href="mailto:wie.markus@web.de">Contact</a>
     @if (!authenticationService.isTokenExpired()) {
     <span> | </span>
     <a class="delete-account" (click)="deleteAccount()">Delete Account</a>

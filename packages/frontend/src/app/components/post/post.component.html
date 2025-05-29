@@ -7,11 +7,13 @@
       <button mat-icon-button (click)="queue()"><mat-icon>{{favoriteIcon()}}</mat-icon></button>
 
     </div>
-    @if (post().thumbnail !== null) {
-    <img (click)="openUrl()" [src]="post().thumbnail" alt="thumbnail" class="thumb-img" />
-    } @else {
-    <div (click)="openUrl()" class="thumb-placeholder"></div>
-    }
+    <a class="thumb-link" [href]="post().url" target="_blank" rel="noopener noreferrer">
+      @if (post().thumbnail !== null) {
+      <img [src]="post().thumbnail" alt="thumbnail" class="thumb-img" />
+      } @else {
+      <div class="thumb-placeholder"></div>
+      }
+    </a>
     @if (post().duration && post().duration! > 0) {
     <span class="duration">
       {{post().duration | duration}}

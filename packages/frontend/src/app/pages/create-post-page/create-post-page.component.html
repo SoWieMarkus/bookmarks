@@ -9,7 +9,9 @@
 <div class="form">
 
   @if (thumbnailUrl()) {
-  <img [src]="thumbnailUrl()" alt="The thumbnail of the post." />
+  <a target="_blank" [href]="attributeUrl()" class="thumbnail-link">
+    <img [src]="thumbnailUrl()" alt="The thumbnail of the post." />
+  </a>
   }
   @if (loadingUrl()) {
   <div class="loading-url">

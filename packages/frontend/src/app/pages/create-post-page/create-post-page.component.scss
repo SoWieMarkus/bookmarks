@@ -32,3 +32,18 @@
   padding: 5rem;
   box-sizing: border-box;
 }
+
+.thumbnail-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.thumbnail-link img {
+  max-width: 100%;
+  object-fit: cover;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  margin: 1rem 0rem;
+}
