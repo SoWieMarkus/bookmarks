@@ -3,7 +3,7 @@ import type { RequestHandler } from "express";
 import createHttpError from "http-errors";
 import bcrypt from "bcryptjs";
 import { database } from "../database";
-import { createToken, logger } from "../utils";
+import { createToken } from "../utils";
 
 export const register: RequestHandler = async (request, response) => {
     const { success, data, error } = Schema.authentication.register.safeParse(request.body);
