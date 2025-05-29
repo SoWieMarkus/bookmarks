@@ -74,6 +74,10 @@
     <input matInput name="creator" placeholder="Enter Creator..." [(ngModel)]="currentCreator"
       [matChipInputFor]="chipGridCreator" [matAutocomplete]="autoCreator"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addCreator($event)" />
+
+    <button matSuffix mat-icon-button color="primary" type="button" (click)="addCreatorManually(currentCreator())">
+      <mat-icon>add</mat-icon>
+    </button>
     <mat-autocomplete #autoCreator="matAutocomplete" (optionSelected)="selectCreator($event)">
       @for (creator of filteredCreators(); track creator.id) {
       <mat-option [value]="creator">{{creator.name}}</mat-option>
@@ -100,6 +104,9 @@
     <input matInput name="tag" placeholder="Enter Tag ..." [(ngModel)]="currentTag" [matChipInputFor]="chipGridTag"
       [matAutocomplete]="autoTag" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
       (matChipInputTokenEnd)="addTag($event)" />
+    <button mat-icon-button matSuffix color="primary" type="button" (click)="addTagManually(currentTag())">
+      <mat-icon>add</mat-icon>
+    </button>
     <mat-autocomplete #autoTag="matAutocomplete" (optionSelected)="selectTag($event)">
       @for (tag of filteredTags(); track tag.id) {
       <mat-option [value]="tag">{{tag.title}}</mat-option>

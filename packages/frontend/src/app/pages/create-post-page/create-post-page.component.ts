@@ -351,16 +351,21 @@ export class CreatePostPage implements OnInit {
 
   protected async addCreator(event: MatChipInputEvent) {
     const value = (event.value ?? "").trim();
-    if (value) {
-      let creator = this.creatorsService
-        .creators()
-        .find((creator) => creator.name.toLowerCase() === value.toLowerCase());
-      creator ??= await this.creatorsService.add(value, null);
-      this.attributeCreators.update((creators) => [...creators, creator]);
-    }
+    this.addCreatorManually(value)
     event.chipInput?.clear();
     this.currentCreator.set("");
   }
+
+  protected async addCreatorManually(value: string) {
+    if (value === "") return;
+    let creator = this.creatorsService
+      .creators()
+      .find((creator) => creator.name.toLowerCase() === value.toLowerCase());
+    creator ??= await this.creatorsService.add(value, null);
+    this.attributeCreators.update((creators) => [...creators, creator]);
+    this.currentCreator.set("");
+  }
+
 
   protected removeTag(tag: Tag) {
     this.attributeTags.set(this.attributeTags().filter(t => t.id !== tag.id));
@@ -378,14 +383,17 @@ export class CreatePostPage implements OnInit {
 
   protected async addTag(event: MatChipInputEvent) {
     const value = (event.value ?? "").trim();
-    if (value) {
-      let tag = this.tagsService
-        .tags()
-        .find((tag) => tag.title.toLowerCase() === value.toLowerCase());
-      tag ??= await this.tagsService.add(value);
-      this.attributeTags.update((tags) => [...tags, tag]);
-    }
+    this.currentTag.set(value);
     event.chipInput?.clear();
+  }
+
+  protected async addTagManually(value: string) {
+    if (value === "") return;
+    let tag = this.tagsService
+      .tags()
+      .find((tag) => tag.title.toLowerCase() === value.toLowerCase());
+    tag ??= await this.tagsService.add(value);
+    this.attributeTags.update((tags) => [...tags, tag]);
     this.currentTag.set("");
   }
 
