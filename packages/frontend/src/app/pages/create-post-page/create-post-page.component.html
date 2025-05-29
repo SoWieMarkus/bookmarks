@@ -6,7 +6,7 @@
 <a routerLink="/import">Import Backlog</a>
 <h2>{{pageTitleText()}}</h2>
 
-<form class="form">
+<div class="form">
 
   @if (thumbnailUrl()) {
   <img [src]="thumbnailUrl()" alt="The thumbnail of the post." />
@@ -104,7 +104,7 @@
       }
     </mat-autocomplete>
   </mat-form-field>
-</form>
+</div>
 
 
 <div class="fabs">

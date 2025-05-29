@@ -13,6 +13,10 @@ mat-toolbar {
   }
 }
 
+.bookmarks-icon {
+  display: block
+}
+
 
 .title {
 	cursor: pointer;
@@ -72,4 +76,12 @@ footer {
 		padding: 10px;
 		margin: 0;
 	}
+
+  .bookmarks-icon {
+    display: none;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
 }
