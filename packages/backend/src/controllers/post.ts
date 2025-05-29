@@ -193,9 +193,7 @@ export const parseByUrl: RequestHandler = async (request, response) => {
 		throw createHttpError(401, "Unauthorized. Please provide a valid token.");
 	}
 
-	const { success, data, error } = Schema.post.parseByUrl.safeParse(
-		request.body,
-	);
+	const { success, data, error } = Schema.post.parseByUrl.safeParse(request.body);
 	if (!success) {
 		throw createHttpError(400, error.errors[0].message);
 	}

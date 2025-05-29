@@ -11,14 +11,7 @@ import { BackendService } from "../../services/backend.service";
 
 @Component({
 	selector: "app-register-page",
-	imports: [
-		FormsModule,
-		RouterLink,
-		MatButtonModule,
-		MatFormFieldModule,
-		MatInputModule,
-		MatIconModule,
-	],
+	imports: [FormsModule, RouterLink, MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule],
 	templateUrl: "./register-page.component.html",
 	styleUrl: "./register-page.component.scss",
 })

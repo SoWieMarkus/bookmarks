@@ -8,8 +8,7 @@ export const parseDuration = (duration: string) => {
 	}
 
 	// Check if the duration is in the ISO 8601 time format (e.g., T1H25M58S, T25M58S, T58S)
-	const iso8601Pattern =
-		/^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?$/;
+	const iso8601Pattern = /^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?$/;
 	const match = iso8601Pattern.exec(duration);
 
 	if (match === null || (!match[1] && !match[2] && !match[3] && !match[4])) {
@@ -30,21 +29,14 @@ export const getMetaTagsOfUrl = async (url: string) => {
 	const html = response.data;
 	const $ = cheerio.load(html);
 
-	const title =
-		$("meta[property='og:title']").attr("content") ?? $("title").text();
+	const title = $("meta[property='og:title']").attr("content") ?? $("title").text();
 	const description =
-		$("meta[property='og:description']").attr("content") ??
-		$("meta[name='description']").attr("content") ??
-		null;
+		$("meta[property='og:description']").attr("content") ?? $("meta[name='description']").attr("content") ?? null;
 	const thumbnail =
-		$("meta[property='og:image']").attr("content") ??
-		$("meta[name='twitter:image']").attr("content") ??
-		null;
+		$("meta[property='og:image']").attr("content") ?? $("meta[name='twitter:image']").attr("content") ?? null;
 
 	const duration =
-		$("meta[property='video:duration']").attr("content") ??
-		$("meta[itemprop='duration']").attr("content") ??
-		null;
+		$("meta[property='video:duration']").attr("content") ?? $("meta[itemprop='duration']").attr("content") ?? null;
 
 	return {
 		title,

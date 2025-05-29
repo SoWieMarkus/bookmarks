@@ -1,10 +1,4 @@
-import {
-	Component,
-	type OnInit,
-	computed,
-	inject,
-	signal,
-} from "@angular/core";
+import { Component, type OnInit, computed, inject, signal } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -38,9 +32,7 @@ export class CreatorDetailsPage implements OnInit {
 	});
 	protected readonly thumbnail = computed(() => {
 		const creator = this.creator();
-		return creator === null
-			? "default.png"
-			: this.creatorService.image(creator);
+		return creator === null ? "default.png" : this.creatorService.image(creator);
 	});
 
 	public ngOnInit(): void {

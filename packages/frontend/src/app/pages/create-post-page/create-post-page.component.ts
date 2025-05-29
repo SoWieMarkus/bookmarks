@@ -1,23 +1,10 @@
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
-import {
-	Component,
-	type OnInit,
-	computed,
-	inject,
-	model,
-	signal,
-} from "@angular/core";
+import { Component, type OnInit, computed, inject, model, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import {
-	MatAutocompleteModule,
-	type MatAutocompleteSelectedEvent,
-} from "@angular/material/autocomplete";
+import { MatAutocompleteModule, type MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCheckboxModule } from "@angular/material/checkbox";
-import {
-	type MatChipInputEvent,
-	MatChipsModule,
-} from "@angular/material/chips";
+import { type MatChipInputEvent, MatChipsModule } from "@angular/material/chips";
 import { MatDialog } from "@angular/material/dialog";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -25,12 +12,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import {
-	ActivatedRoute,
-	type Params,
-	Router,
-	RouterLink,
-} from "@angular/router";
+import { ActivatedRoute, type Params, Router, RouterLink } from "@angular/router";
 import { z } from "zod";
 import { CreateCreatorDialog } from "../../dialogs/create-creator-dialog/create-creator-dialog.component";
 import { CreateTagDialog } from "../../dialogs/create-tag-dialog/create-tag-dialog.component";
@@ -85,11 +67,7 @@ export class CreatePostPage implements OnInit {
 	protected readonly filteredCreators = computed(() => {
 		const currentCreator = this.currentCreator().toLowerCase();
 		return currentCreator
-			? this.creatorsService
-					.creators()
-					.filter((creator) =>
-						creator.name.toLowerCase().includes(currentCreator),
-					)
+			? this.creatorsService.creators().filter((creator) => creator.name.toLowerCase().includes(currentCreator))
 			: this.creatorsService.creators();
 	});
 
@@ -98,9 +76,7 @@ export class CreatePostPage implements OnInit {
 	protected readonly filteredTags = computed(() => {
 		const currentTag = this.currentTag().toLowerCase();
 		return currentTag
-			? this.tagsService
-					.tags()
-					.filter((tag) => tag.title.toLowerCase().includes(currentTag))
+			? this.tagsService.tags().filter((tag) => tag.title.toLowerCase().includes(currentTag))
 			: this.tagsService.tags();
 	});
 
@@ -136,13 +112,9 @@ export class CreatePostPage implements OnInit {
 					this.clear();
 					this.preparing.set(false);
 					console.error("Error initializing create post page:", error);
-					this.snackbar.open(
-						"An error occurred while initializing the page. Please try again.",
-						"Close",
-						{
-							duration: 5000,
-						},
-					);
+					this.snackbar.open("An error occurred while initializing the page. Please try again.", "Close", {
+						duration: 5000,
+					});
 					this.mode.set("create");
 				});
 			},
@@ -237,21 +209,14 @@ export class CreatePostPage implements OnInit {
 			if (typeof template.duration !== "string") {
 				this.attributeDuration.set(template.duration ?? 0);
 			} else {
-				console.warn(
-					"Duration is a string, expected a number.",
-					template.duration,
-				);
+				console.warn("Duration is a string, expected a number.", template.duration);
 			}
 			this.thumbnailUrl.set(template.thumbnail);
 		} catch (error) {
 			console.error("Error loading URL:", error);
-			this.snackbar.open(
-				"An error occurred while loading the URL. Please check the URL and try again.",
-				"Close",
-				{
-					duration: 5000,
-				},
-			);
+			this.snackbar.open("An error occurred while loading the URL. Please check the URL and try again.", "Close", {
+				duration: 5000,
+			});
 		}
 		this.loadingUrl.set(false);
 	}
@@ -337,11 +302,7 @@ export class CreatePostPage implements OnInit {
 			return;
 		}
 
-		if (
-			confirm(
-				"Are you sure you want to remove this import item? This action cannot be undone.",
-			)
-		) {
+		if (confirm("Are you sure you want to remove this import item? This action cannot be undone.")) {
 			this.importService.remove(id);
 			const next = this.importService.getNext();
 			if (next === null) {
@@ -382,24 +343,15 @@ export class CreatePostPage implements OnInit {
 	}
 
 	protected removeCreator(creator: Creator) {
-		this.attributeCreators.set(
-			this.attributeCreators().filter((c) => c.id !== creator.id),
-		);
+		this.attributeCreators.set(this.attributeCreators().filter((c) => c.id !== creator.id));
 	}
 
 	protected selectCreator(event: MatAutocompleteSelectedEvent) {
-		if (
-			this.attributeCreators().some(
-				(creator) => creator.id === event.option.value.id,
-			)
-		) {
+		if (this.attributeCreators().some((creator) => creator.id === event.option.value.id)) {
 			this.currentCreator.set("");
 			return;
 		}
-		this.attributeCreators.update((creators) => [
-			...creators,
-			event.option.value,
-		]);
+		this.attributeCreators.update((creators) => [...creators, event.option.value]);
 		event.option.deselect();
 		this.currentCreator.set("");
 	}
@@ -412,9 +364,7 @@ export class CreatePostPage implements OnInit {
 
 	protected async addCreatorManually(value: string) {
 		if (value === "") return;
-		let creator = this.creatorsService
-			.creators()
-			.find((creator) => creator.name.toLowerCase() === value.toLowerCase());
+		let creator = this.creatorsService.creators().find((creator) => creator.name.toLowerCase() === value.toLowerCase());
 		creator ??= await this.creatorsService.add(value, null);
 		this.attributeCreators.update((creators) => [...creators, creator]);
 		this.currentCreator.set("");
@@ -442,9 +392,7 @@ export class CreatePostPage implements OnInit {
 
 	protected async addTagManually(value: string) {
 		if (value === "") return;
-		let tag = this.tagsService
-			.tags()
-			.find((tag) => tag.title.toLowerCase() === value.toLowerCase());
+		let tag = this.tagsService.tags().find((tag) => tag.title.toLowerCase() === value.toLowerCase());
 		tag ??= await this.tagsService.add(value);
 		this.attributeTags.update((tags) => [...tags, tag]);
 		this.currentTag.set("");

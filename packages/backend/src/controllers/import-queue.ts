@@ -3,18 +3,13 @@ import type { RequestHandler } from "express";
 import createHttpError from "http-errors";
 import { database } from "../database";
 
-export const addLinksToImportQueue: RequestHandler = async (
-	request,
-	response,
-) => {
+export const addLinksToImportQueue: RequestHandler = async (request, response) => {
 	const userId = request.userId;
 	if (userId === undefined) {
 		throw createHttpError(401, "Unauthorized. Please provide a valid token.");
 	}
 
-	const { success, data, error } = Schema.importQueue.addMultiple.safeParse(
-		request.body,
-	);
+	const { success, data, error } = Schema.importQueue.addMultiple.safeParse(request.body);
 	if (!success) {
 		throw createHttpError(400, error.errors[0].message);
 	}
@@ -51,10 +46,7 @@ export const getImportQueue: RequestHandler = async (request, response) => {
 	response.status(200).json(items);
 };
 
-export const removeImportQueueItem: RequestHandler = async (
-	request,
-	response,
-) => {
+export const removeImportQueueItem: RequestHandler = async (request, response) => {
 	const userId = request.userId;
 	if (userId === undefined) {
 		throw createHttpError(401, "Unauthorized. Please provide a valid token.");

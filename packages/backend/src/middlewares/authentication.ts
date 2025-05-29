@@ -13,39 +13,27 @@ const PayloadSchema = z.object({
 export const requiresAuthentication: RequestHandler = (request, _, next) => {
 	const token = request.headers.authorization;
 	if (token === undefined || token === "") {
-		const httpError = createHttpError(
-			401,
-			"Unauthorized. Please provide a valid token.",
-		);
+		const httpError = createHttpError(401, "Unauthorized. Please provide a valid token.");
 		return next(httpError);
 	}
 
 	jwt.verify(token, env.JWT_SECRET, async (error, decoded) => {
 		if (error !== null || decoded === undefined) {
-			const httpError = createHttpError(
-				401,
-				"Unauthorized. Please provide a valid token.",
-			);
+			const httpError = createHttpError(401, "Unauthorized. Please provide a valid token.");
 			return next(httpError);
 		}
 
 		const { success, data } = PayloadSchema.safeParse(decoded);
 
 		if (!success) {
-			const httpError = createHttpError(
-				401,
-				"Unauthorized. Invalid token payload.",
-			);
+			const httpError = createHttpError(401, "Unauthorized. Invalid token payload.");
 			return next(httpError);
 		}
 
 		const { userId, exp } = data;
 		const now = Date.now() / 1000;
 		if (exp < now) {
-			const httpError = createHttpError(
-				401,
-				"Unauthorized. Token has expired.",
-			);
+			const httpError = createHttpError(401, "Unauthorized. Token has expired.");
 			return next(httpError);
 		}
 

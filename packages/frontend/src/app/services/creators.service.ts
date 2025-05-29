@@ -15,18 +15,14 @@ export class CreatorsService {
 	public async add(name: string, image: string | null) {
 		const creator = await this.backend.creators.add({ name, image });
 		this.creators.update((currentCreators) =>
-			[...currentCreators, creator].sort((a, b) =>
-				a.name.localeCompare(b.name),
-			),
+			[...currentCreators, creator].sort((a, b) => a.name.localeCompare(b.name)),
 		);
 		return creator;
 	}
 
 	public async remove(creatorId: string) {
 		const creator = await this.backend.creators.remove(creatorId);
-		this.creators.update((currentCreators) =>
-			currentCreators.filter((a) => a.id !== creator.id),
-		);
+		this.creators.update((currentCreators) => currentCreators.filter((a) => a.id !== creator.id));
 
 		// remove the creator from all the posts
 		// we could also refresh the posts from the backend, but this is more time efficient
@@ -43,9 +39,7 @@ export class CreatorsService {
 			name,
 			image,
 		});
-		this.creators.update((currentCreators) =>
-			currentCreators.map((a) => (a.id === creator.id ? creator : a)),
-		);
+		this.creators.update((currentCreators) => currentCreators.map((a) => (a.id === creator.id ? creator : a)));
 
 		// replace the creator in all the posts
 		// we could also refresh the posts from the backend, but this is more time efficient

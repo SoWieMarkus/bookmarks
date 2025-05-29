@@ -33,11 +33,7 @@ export class CreatorsPage {
 	}
 
 	protected remove(creator: Creator) {
-		if (
-			!confirm(
-				"Are you sure you want to delete this creator? This action cannot be undone.",
-			)
-		) {
+		if (!confirm("Are you sure you want to delete this creator? This action cannot be undone.")) {
 			return;
 		}
 		this.creatorsService.remove(creator.id);

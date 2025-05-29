@@ -11,14 +11,7 @@ import { ImportService } from "../../services/imports.service";
 
 @Component({
 	selector: "app-import-page",
-	imports: [
-		MatListModule,
-		RouterLink,
-		FormsModule,
-		MatButtonModule,
-		MatFormFieldModule,
-		MatInputModule,
-	],
+	imports: [MatListModule, RouterLink, FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule],
 	templateUrl: "./import-page.component.html",
 	styleUrl: "./import-page.component.scss",
 })

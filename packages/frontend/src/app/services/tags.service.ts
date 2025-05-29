@@ -13,17 +13,13 @@ export class TagsService {
 
 	public async add(title: string) {
 		const tag = await this.backend.tags.add({ title });
-		this.tags.update((currentTags) =>
-			[...currentTags, tag].sort((a, b) => a.title.localeCompare(b.title)),
-		);
+		this.tags.update((currentTags) => [...currentTags, tag].sort((a, b) => a.title.localeCompare(b.title)));
 		return tag;
 	}
 
 	public async remove(tagId: string) {
 		const tag = await this.backend.tags.remove(tagId);
-		this.tags.update((currentTags) =>
-			currentTags.filter((t) => t.id !== tag.id),
-		);
+		this.tags.update((currentTags) => currentTags.filter((t) => t.id !== tag.id));
 
 		// remove the tag from all the posts
 		// we could also refresh the posts from the backend, but this is more time efficient
@@ -37,9 +33,7 @@ export class TagsService {
 
 	public async edit(tagId: string, title: string) {
 		const tag = await this.backend.tags.edit(tagId, { title });
-		this.tags.update((currentTags) =>
-			currentTags.map((t) => (t.id === tag.id ? tag : t)),
-		);
+		this.tags.update((currentTags) => currentTags.map((t) => (t.id === tag.id ? tag : t)));
 
 		// replace the tag in all the posts
 		// we could also refresh the posts from the backend, but this is more time efficient

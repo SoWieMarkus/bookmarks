@@ -1,11 +1,7 @@
 import { Component, inject } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatChipsModule } from "@angular/material/chips";
-import {
-	MAT_DIALOG_DATA,
-	MatDialogModule,
-	MatDialogRef,
-} from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from "@angular/material/dialog";
 import { z } from "zod";
 import type { Creator, Tag } from "../../schemas";
 import { CreatorsService, TagsService } from "../../services";
@@ -25,8 +21,7 @@ export class FilterDialog {
 	protected readonly tagsService = inject(TagsService);
 	protected readonly creatorsService = inject(CreatorsService);
 	protected readonly reference = inject(MatDialogRef<FilterDialog>);
-	protected readonly data =
-		inject<z.infer<typeof FilterDialogDataSchema>>(MAT_DIALOG_DATA);
+	protected readonly data = inject<z.infer<typeof FilterDialogDataSchema>>(MAT_DIALOG_DATA);
 
 	constructor() {
 		// parse the data for type safety

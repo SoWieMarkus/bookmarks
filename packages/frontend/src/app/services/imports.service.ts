@@ -17,9 +17,7 @@ export class ImportService {
 
 	public async remove(itemId: string) {
 		const item = await this.backend.importQueue.remove(itemId);
-		this.items.update((currentItems) =>
-			currentItems.filter((a) => a.id !== item.id),
-		);
+		this.items.update((currentItems) => currentItems.filter((a) => a.id !== item.id));
 	}
 
 	public async initialize() {

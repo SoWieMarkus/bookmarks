@@ -49,22 +49,28 @@ export class AppComponent implements OnInit {
 	}
 
 	public deleteAccount() {
-		if (
-			confirm(
-				"Are you sure you want to delete your account? This action cannot be undone.",
-			)
-		) {
-			this.backendService.authentication
-				.remove()
-				.then(() => {
-					this.authenticationService.removeToken();
-					this.router.navigate(["/login"]);
-				})
-				.catch((error) => {
-					console.error("Error deleting account:", error);
-					alert(`Error deleting account: ${error.message}`);
-				});
+		const confirmed = confirm("Are you sure you want to delete your account? This action cannot be undone.");
+
+		if (!confirmed) {
+			return;
 		}
+
+		const password = prompt("Please enter your password to confirm account deletion:");
+
+		if (!password) {
+			return;
+		}
+
+		this.backendService.authentication
+			.remove({ password })
+			.then(() => {
+				this.authenticationService.removeToken();
+				this.router.navigate(["/login"]);
+			})
+			.catch((error) => {
+				console.error("Error deleting account:", error);
+				alert(`Error deleting account: ${error.message}`);
+			});
 	}
 
 	protected export() {

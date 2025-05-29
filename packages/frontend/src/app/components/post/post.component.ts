@@ -12,14 +12,7 @@ import { PostsService } from "../../services/posts.service";
 
 @Component({
 	selector: "app-post",
-	imports: [
-		ShortenPipe,
-		MatChipsModule,
-		RouterLink,
-		DurationPipe,
-		MatIconModule,
-		MatButtonModule,
-	],
+	imports: [ShortenPipe, MatChipsModule, RouterLink, DurationPipe, MatIconModule, MatButtonModule],
 	templateUrl: "./post.component.html",
 	styleUrl: "./post.component.scss",
 })
@@ -42,11 +35,7 @@ export class PostComponent {
 	}
 
 	protected remove() {
-		if (
-			!confirm(
-				"Are you sure you want to delete this post? This action cannot be undone.",
-			)
-		) {
+		if (!confirm("Are you sure you want to delete this post? This action cannot be undone.")) {
 			return;
 		}
 		this.postService.remove(this.post().id);

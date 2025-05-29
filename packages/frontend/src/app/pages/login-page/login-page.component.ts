@@ -11,14 +11,7 @@ import { BackendService } from "../../services/backend.service";
 
 @Component({
 	selector: "app-login-page",
-	imports: [
-		FormsModule,
-		RouterLink,
-		MatButtonModule,
-		MatFormFieldModule,
-		MatInputModule,
-		MatIconModule,
-	],
+	imports: [FormsModule, RouterLink, MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule],
 	templateUrl: "./login-page.component.html",
 	styleUrl: "./login-page.component.scss",
 })

@@ -14,11 +14,7 @@ const applyTagFilter = (posts: Post[], filterTags: string[]) => {
 	if (filterTags.length === 0) {
 		return posts;
 	}
-	return posts.filter((post) =>
-		filterTags.some((filterTag) =>
-			post.tags.some((tag) => filterTag === tag.id),
-		),
-	);
+	return posts.filter((post) => filterTags.some((filterTag) => post.tags.some((tag) => filterTag === tag.id)));
 };
 
 const applyCreatorFilter = (posts: Post[], filterCreators: string[]) => {
@@ -26,21 +22,13 @@ const applyCreatorFilter = (posts: Post[], filterCreators: string[]) => {
 		return posts;
 	}
 	return posts.filter((post) =>
-		filterCreators.some((filterCreator) =>
-			post.creators.some((creator) => filterCreator === creator.id),
-		),
+		filterCreators.some((filterCreator) => post.creators.some((creator) => filterCreator === creator.id)),
 	);
 };
 
 @Component({
 	selector: "app-main-page",
-	imports: [
-		RouterLink,
-		MatIconModule,
-		MatButtonModule,
-		PostComponent,
-		MatGridListModule,
-	],
+	imports: [RouterLink, MatIconModule, MatButtonModule, PostComponent, MatGridListModule],
 	templateUrl: "./main-page.component.html",
 	styleUrl: "./main-page.component.scss",
 })

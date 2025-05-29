@@ -1,10 +1,5 @@
 import { Injectable, inject } from "@angular/core";
-import {
-	type ActivatedRouteSnapshot,
-	type CanActivateFn,
-	Router,
-	type RouterStateSnapshot,
-} from "@angular/router";
+import { type ActivatedRouteSnapshot, type CanActivateFn, Router, type RouterStateSnapshot } from "@angular/router";
 import { AuthenticationService } from "./services/authentication.service";
 
 @Injectable({
@@ -14,10 +9,7 @@ class AuthenticationPermissionService {
 	private readonly router = inject(Router);
 	private readonly authenticationService = inject(AuthenticationService);
 
-	public canActivate(
-		next: ActivatedRouteSnapshot,
-		state: RouterStateSnapshot,
-	): boolean {
+	public canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 		const isTokenExpired = this.authenticationService.isTokenExpired();
 		const doesTokenExist = this.authenticationService.getToken() !== null;
 

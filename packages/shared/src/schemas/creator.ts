@@ -12,10 +12,7 @@ export const add = z.object({
 });
 
 export const query = z.object({
-	name: z
-		.string()
-		.max(100, "Creator name must be at most 100 characters long")
-		.optional(),
+	name: z.string().max(100, "Creator name must be at most 100 characters long").optional(),
 });
 
 export const edit = add;

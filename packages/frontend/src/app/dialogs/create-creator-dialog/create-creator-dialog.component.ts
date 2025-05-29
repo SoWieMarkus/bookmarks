@@ -1,21 +1,14 @@
 import { Component, computed, inject, model, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
-import {
-	MAT_DIALOG_DATA,
-	MatDialogModule,
-	MatDialogRef,
-} from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import {
-	type ImageCroppedEvent,
-	ImageCropperComponent,
-} from "ngx-image-cropper";
+import { type ImageCroppedEvent, ImageCropperComponent } from "ngx-image-cropper";
 import { z } from "zod";
 import { type Creator, CreatorSchema } from "../../schemas";
 import { CreatorsService } from "../../services";
@@ -39,20 +32,12 @@ export class CreateCreatorDialog {
 	private readonly snackbar = inject(MatSnackBar);
 	private readonly creatorsService = inject(CreatorsService);
 
-	protected readonly existingCreator = inject<Creator | undefined>(
-		MAT_DIALOG_DATA,
-	);
+	protected readonly existingCreator = inject<Creator | undefined>(MAT_DIALOG_DATA);
 	protected readonly reference = inject(MatDialogRef<CreateCreatorDialog>);
-	protected readonly titleText = computed(() =>
-		this.existingCreator === undefined ? "Add Creator" : "Edit Creator",
-	);
-	protected readonly confirmActionText = computed(() =>
-		this.existingCreator === undefined ? "Add" : "Save",
-	);
+	protected readonly titleText = computed(() => (this.existingCreator === undefined ? "Add Creator" : "Edit Creator"));
+	protected readonly confirmActionText = computed(() => (this.existingCreator === undefined ? "Add" : "Save"));
 
-	protected readonly attributeName = model<string>(
-		this.existingCreator === undefined ? "" : this.existingCreator.name,
-	);
+	protected readonly attributeName = model<string>(this.existingCreator === undefined ? "" : this.existingCreator.name);
 	protected readonly attributeImage = signal<string | null>(
 		this.existingCreator === undefined ? null : this.existingCreator.image,
 	);
@@ -64,9 +49,7 @@ export class CreateCreatorDialog {
 
 	protected readonly onFileSelectedEvent = signal<Event | null>(null);
 	protected readonly image = computed(() => {
-		return this.existingCreator === undefined
-			? "default.png"
-			: this.creatorsService.image(this.existingCreator);
+		return this.existingCreator === undefined ? "default.png" : this.creatorsService.image(this.existingCreator);
 	});
 
 	constructor() {
@@ -90,10 +73,7 @@ export class CreateCreatorDialog {
 				return;
 			}
 
-			if (
-				this.existingCreator.name === name &&
-				this.existingCreator.image === image
-			) {
+			if (this.existingCreator.name === name && this.existingCreator.image === image) {
 				this.reference.close();
 				return;
 			}

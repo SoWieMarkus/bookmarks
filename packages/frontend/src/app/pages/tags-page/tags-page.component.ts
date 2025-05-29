@@ -34,11 +34,7 @@ export class TagsPage {
 	}
 
 	public removeTag(tag: Tag) {
-		if (
-			confirm(
-				`Are you sure you want to remove the tag "${tag.title}"? This action cannot be undone.`,
-			)
-		) {
+		if (confirm(`Are you sure you want to remove the tag "${tag.title}"? This action cannot be undone.`)) {
 			this.tagsService.remove(tag.id).catch((error) => {
 				console.error("Error removing tag:", error);
 				this.snackbar.open(`Error removing tag: ${error.message}`, "Close", {});
