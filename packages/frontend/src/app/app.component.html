@@ -40,7 +40,7 @@
     }
     @if (profileService.user() !== null) {
     <span> | </span>
-    <span>Logged in as {{profileService.user()?.username}}</span>
+    <span>Logged in as <span class="user">{{profileService.user()?.username}}</span></span>
     }
   </div>
   <a>© {{year}}, Markus Wieland</a>

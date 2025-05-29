@@ -4,10 +4,10 @@ mat-toolbar {
   position: sticky;
   top: 0;
   z-index: 1000;
-  @include mat.toolbar-overrides((
-    container-background-color: var(--mat-sys-primary-container),
-    container-text-color: var(--mat-sys-on-surface),
-  ));
+  @include mat.toolbar-overrides((container-background-color: var(--mat-sys-primary-container),
+      container-text-color: var(--mat-sys-on-surface),
+    ));
+
   mat-icon {
     color: var(--mat-sys-primary);
   }
@@ -19,7 +19,7 @@ mat-toolbar {
 
 
 .title {
-	cursor: pointer;
+  cursor: pointer;
   font-family: "Dancing Script", "Times New Roman", Times, serif;
   font-size: 2rem;
   color: var(--mat-sys-primary);
@@ -57,11 +57,11 @@ footer {
 
 .container {
   flex: 1 0 auto;
-	width: 60%;
-	margin-left: 20%;
+  width: 60%;
+  margin-left: 20%;
   margin-right: 20%;
-	padding: 1rem;
-	box-sizing: border-box;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 .delete-account {
@@ -70,12 +70,17 @@ footer {
   text-decoration: underline;
 }
 
+
+.user {
+  font-weight: bold;
+}
+
 @media (max-width: 1000px) {
-	.container {
-		width: 100%;
-		padding: 10px;
-		margin: 0;
-	}
+  .container {
+    width: 100%;
+    padding: 10px;
+    margin: 0;
+  }
 
   .bookmarks-icon {
     display: none;
