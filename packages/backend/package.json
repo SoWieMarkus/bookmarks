@@ -6,8 +6,6 @@
     "dev": "nodemon src/index.ts",
     "build": "npx tsc",
     "start": "node dist/index.js",
-    "lint": "npx @biomejs/biome format --write ./src",
-    "test": "jest",
     "database": "npx prisma migrate deploy && npx prisma generate"
   },
   "keywords": [],

@@ -1,2 +1,2 @@
-export * as Schema from './schemas';
+export * as Schema from "./schemas";
 export * from "./shuffle";

@@ -6,9 +6,9 @@ const router = express.Router();
 
 router.post("/add", requiresAuthentication, TagController.addTag);
 router.delete(
-    "/remove/:tagId",
-    requiresAuthentication,
-    TagController.removeTag,
+	"/remove/:tagId",
+	requiresAuthentication,
+	TagController.removeTag,
 );
 router.get("/", requiresAuthentication, TagController.getTags);
 router.post("/edit/:tagId", requiresAuthentication, TagController.editTag);

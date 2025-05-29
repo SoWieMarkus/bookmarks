@@ -1,21 +1,21 @@
-import type { HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
-import { AuthenticationService } from '../services/authentication.service';
-import { Router } from '@angular/router';
-import { catchError, throwError } from 'rxjs';
+import type { HttpInterceptorFn } from "@angular/common/http";
+import { inject } from "@angular/core";
+import { AuthenticationService } from "../services/authentication.service";
+import { Router } from "@angular/router";
+import { catchError, throwError } from "rxjs";
 
 export const unauthorizedInterceptor: HttpInterceptorFn = (request, next) => {
-  const authenticationService = inject(AuthenticationService);
-  const router = inject(Router);
+	const authenticationService = inject(AuthenticationService);
+	const router = inject(Router);
 
-  return next(request).pipe(
-    catchError((error) => {
-      if (error.status === 401) {
-        console.warn("Unauthorized request, redirecting to login");
-        authenticationService.removeToken();
-        router.navigate(['/login']);
-      }
-      return throwError(() => error);
-    }));
-
-}
+	return next(request).pipe(
+		catchError((error) => {
+			if (error.status === 401) {
+				console.warn("Unauthorized request, redirecting to login");
+				authenticationService.removeToken();
+				router.navigate(["/login"]);
+			}
+			return throwError(() => error);
+		}),
+	);
+};
