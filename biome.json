@@ -6,7 +6,11 @@
 		"useIgnoreFile": false
 	},
 	"files": {
-		"include": ["packages/*/src/**/*.ts"],
+		"include": [
+			"packages/*/src/**/*.ts",
+			"packages/*/src/**/*.html",
+			"packages/*/src/**/*.scss"
+		],
 		"ignoreUnknown": false,
 		"ignore": []
 	},
