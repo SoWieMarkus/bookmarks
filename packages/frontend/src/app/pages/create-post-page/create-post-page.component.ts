@@ -353,7 +353,6 @@ export class CreatePostPage implements OnInit {
     const value = (event.value ?? "").trim();
     this.addCreatorManually(value)
     event.chipInput?.clear();
-    this.currentCreator.set("");
   }
 
   protected async addCreatorManually(value: string) {
@@ -383,7 +382,7 @@ export class CreatePostPage implements OnInit {
 
   protected async addTag(event: MatChipInputEvent) {
     const value = (event.value ?? "").trim();
-    this.currentTag.set(value);
+    this.addCreatorManually(value);
     event.chipInput?.clear();
   }
 
