@@ -1,10 +1,10 @@
 import { Injectable, inject, signal } from "@angular/core";
 import { Router } from "@angular/router";
-import { TagsService } from "./tags.service";
 import { CreatorsService } from "./creators.service";
-import { PostsService } from "./posts.service";
 import { ImportService } from "./imports.service";
+import { PostsService } from "./posts.service";
 import { ProfileService } from "./profile.service";
+import { TagsService } from "./tags.service";
 
 @Injectable({
 	providedIn: "root",

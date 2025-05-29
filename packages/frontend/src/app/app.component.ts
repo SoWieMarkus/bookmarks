@@ -1,14 +1,14 @@
-import { Component, inject, type OnInit } from "@angular/core";
-import { Router, RouterLink, RouterOutlet } from "@angular/router";
-import { MatToolbarModule } from "@angular/material/toolbar";
-import { MatIconModule } from "@angular/material/icon";
-import { AuthenticationService } from "./services/authentication.service";
-import { MatButtonModule } from "@angular/material/button";
+import { Component, type OnInit, inject } from "@angular/core";
 import { MatBadgeModule } from "@angular/material/badge";
-import { PostsService } from "./services/posts.service";
+import { MatButtonModule } from "@angular/material/button";
 import { MatDividerModule } from "@angular/material/divider";
-import { BackendService } from "./services/backend.service";
+import { MatIconModule } from "@angular/material/icon";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { Router, RouterLink, RouterOutlet } from "@angular/router";
+import { AuthenticationService } from "./services/authentication.service";
+import { BackendService } from "./services/backend.service";
+import { PostsService } from "./services/posts.service";
 import { ProfileService } from "./services/profile.service";
 
 @Component({

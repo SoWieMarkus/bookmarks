@@ -1,15 +1,15 @@
 import type { Routes } from "@angular/router";
-import { TagsPage } from "./pages/tags-page/tags-page.component";
-import { LoginPage } from "./pages/login-page/login-page.component";
-import { RegisterPage } from "./pages/register-page/register-page.component";
-import { LandingPage } from "./pages/landing-page/landing-page.component";
-import { CreatorsPage } from "./pages/creators-page/creators-page.component";
-import { WatchLaterPage } from "./pages/watch-later-page/watch-later-page.component";
-import { CreatePostPage } from "./pages/create-post-page/create-post-page.component";
-import { MainPage } from "./pages/main-page/main-page.component";
 import { AuthenticationGuard } from "./authentication.guard";
-import { ImportPage } from "./pages/import-page/import-page.component";
+import { CreatePostPage } from "./pages/create-post-page/create-post-page.component";
 import { CreatorDetailsPage } from "./pages/creator-details-page/creator-details-page.component";
+import { CreatorsPage } from "./pages/creators-page/creators-page.component";
+import { ImportPage } from "./pages/import-page/import-page.component";
+import { LandingPage } from "./pages/landing-page/landing-page.component";
+import { LoginPage } from "./pages/login-page/login-page.component";
+import { MainPage } from "./pages/main-page/main-page.component";
+import { RegisterPage } from "./pages/register-page/register-page.component";
+import { TagsPage } from "./pages/tags-page/tags-page.component";
+import { WatchLaterPage } from "./pages/watch-later-page/watch-later-page.component";
 
 export const routes: Routes = [
 	{

@@ -1,3 +1,4 @@
+import path from "node:path";
 import cors from "cors";
 import express, {
 	json,
@@ -8,13 +9,12 @@ import express, {
 import createHttpError, { isHttpError } from "http-errors";
 import {
 	AuthenticationRouter,
-	TagRouter,
 	CreatorRouter,
-	PostRouter,
 	ImportQueueRouter,
+	PostRouter,
+	TagRouter,
 } from "./routes";
 import { logger } from "./utils";
-import path from "node:path";
 
 const app = express();
 

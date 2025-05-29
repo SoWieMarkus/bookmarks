@@ -1,4 +1,6 @@
 import { Component, inject } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
+import { MatChipsModule } from "@angular/material/chips";
 import {
 	MAT_DIALOG_DATA,
 	MatDialogModule,
@@ -6,9 +8,7 @@ import {
 } from "@angular/material/dialog";
 import { z } from "zod";
 import type { Creator, Tag } from "../../schemas";
-import { MatChipsModule } from "@angular/material/chips";
 import { CreatorsService, TagsService } from "../../services";
-import { MatButtonModule } from "@angular/material/button";
 
 const FilterDialogDataSchema = z.object({
 	tags: z.string().array(),

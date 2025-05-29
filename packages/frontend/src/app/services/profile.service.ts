@@ -1,6 +1,6 @@
 import { Injectable, inject, signal } from "@angular/core";
-import { BackendService } from "./backend.service";
 import type { User } from "../schemas/authentication";
+import { BackendService } from "./backend.service";
 
 @Injectable({
 	providedIn: "root",

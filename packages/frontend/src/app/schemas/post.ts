@@ -1,6 +1,6 @@
 import z from "zod";
-import { TagSchema } from "./tag";
 import { CreatorSchema } from "./creator";
+import { TagSchema } from "./tag";
 
 export const PostSchema = z.object({
 	createdAt: z.string().datetime(),

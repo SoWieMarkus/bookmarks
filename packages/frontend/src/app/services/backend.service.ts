@@ -1,14 +1,14 @@
-import { inject, Injectable } from "@angular/core";
-import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
+import { Injectable, inject } from "@angular/core";
 import type { Schema } from "@bookmarks/shared";
-import type { z } from "zod";
 import type { Observable } from "rxjs";
-import { TagSchema } from "../schemas/tag";
-import { CreatorSchema } from "../schemas/creator";
+import type { z } from "zod";
+import { environment } from "../../environments/environment";
 import { AuthenticationSchema, UserSchema } from "../schemas/authentication";
-import { PostSchema, PostTemplateSchema } from "../schemas/post";
+import { CreatorSchema } from "../schemas/creator";
 import { ImportQueueItemSchema } from "../schemas/import-queue";
+import { PostSchema, PostTemplateSchema } from "../schemas/post";
+import { TagSchema } from "../schemas/tag";
 
 const BACKEND_URL = environment.backend;
 

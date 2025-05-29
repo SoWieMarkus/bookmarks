@@ -1,13 +1,13 @@
 import { Component, inject, model, signal } from "@angular/core";
-import { Router, RouterLink } from "@angular/router";
-import { BackendService } from "../../services/backend.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { AuthenticationService } from "../../services/authentication.service";
-import { MatButtonModule } from "@angular/material/button";
 import { FormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { Router, RouterLink } from "@angular/router";
+import { AuthenticationService } from "../../services/authentication.service";
+import { BackendService } from "../../services/backend.service";
 
 @Component({
 	selector: "app-register-page",

@@ -1,5 +1,5 @@
-import type { RequestHandler } from "express";
 import { Schema } from "@bookmarks/shared";
+import type { RequestHandler } from "express";
 import createHttpError from "http-errors";
 import { database } from "../database";
 

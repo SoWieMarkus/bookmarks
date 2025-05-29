@@ -1,12 +1,12 @@
 import { Component, inject } from "@angular/core";
-import { CreatorsService } from "../../services/creators.service";
-import { MatDialog } from "@angular/material/dialog";
-import { CreateCreatorDialog } from "../../dialogs/create-creator-dialog/create-creator-dialog.component";
-import type { Creator } from "../../schemas/creator";
 import { MatButtonModule } from "@angular/material/button";
+import { MatDialog } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
 import { RouterLink } from "@angular/router";
+import { CreateCreatorDialog } from "../../dialogs/create-creator-dialog/create-creator-dialog.component";
+import type { Creator } from "../../schemas/creator";
+import { CreatorsService } from "../../services/creators.service";
 
 @Component({
 	selector: "app-creator-page",

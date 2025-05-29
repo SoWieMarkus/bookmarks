@@ -1,14 +1,14 @@
 import { Component, computed, inject, signal } from "@angular/core";
-import { PostsService } from "../../services/posts.service";
-import type { Post } from "../../schemas";
-import { shuffleArray } from "@bookmarks/shared";
-import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialog } from "@angular/material/dialog";
-import { FilterDialog } from "../../dialogs/filter-dialog/filter-dialog.component";
-import { PostComponent } from "../../components/post/post.component";
 import { MatGridListModule } from "@angular/material/grid-list";
+import { MatIconModule } from "@angular/material/icon";
 import { RouterLink } from "@angular/router";
+import { shuffleArray } from "@bookmarks/shared";
+import { PostComponent } from "../../components/post/post.component";
+import { FilterDialog } from "../../dialogs/filter-dialog/filter-dialog.component";
+import type { Post } from "../../schemas";
+import { PostsService } from "../../services/posts.service";
 
 const applyTagFilter = (posts: Post[], filterTags: string[]) => {
 	if (filterTags.length === 0) {

@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from "@angular/core";
+import { Injectable, inject, signal } from "@angular/core";
 import type { Tag } from "../schemas/tag";
 import { BackendService } from "./backend.service";
 import { PostsService } from "./posts.service";

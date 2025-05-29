@@ -1,6 +1,6 @@
+import { Schema } from "@bookmarks/shared";
 import type { RequestHandler } from "express";
 import createHttpError from "http-errors";
-import { Schema } from "@bookmarks/shared";
 import { database } from "../database";
 import { resizeImage } from "../utils";
 

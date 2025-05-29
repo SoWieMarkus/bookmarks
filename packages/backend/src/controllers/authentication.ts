@@ -1,7 +1,7 @@
 import { Schema } from "@bookmarks/shared";
+import bcrypt from "bcryptjs";
 import type { RequestHandler } from "express";
 import createHttpError from "http-errors";
-import bcrypt from "bcryptjs";
 import { database } from "../database";
 import { createToken } from "../utils";
 

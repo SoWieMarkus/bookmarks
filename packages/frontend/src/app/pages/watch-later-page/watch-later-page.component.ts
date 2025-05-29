@@ -1,9 +1,9 @@
 import { Component, computed, inject, signal } from "@angular/core";
-import { PostsService } from "../../services/posts.service";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { shuffleArray } from "@bookmarks/shared";
 import { PostComponent } from "../../components/post/post.component";
+import { PostsService } from "../../services/posts.service";
 
 @Component({
 	selector: "app-watch-later-page",

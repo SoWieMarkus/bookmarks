@@ -1,44 +1,44 @@
+import { COMMA, ENTER } from "@angular/cdk/keycodes";
 import {
 	Component,
+	type OnInit,
 	computed,
 	inject,
 	model,
-	type OnInit,
 	signal,
 } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import {
+	MatAutocompleteModule,
+	type MatAutocompleteSelectedEvent,
+} from "@angular/material/autocomplete";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import {
+	type MatChipInputEvent,
+	MatChipsModule,
+} from "@angular/material/chips";
+import { MatDialog } from "@angular/material/dialog";
+import { MatDividerModule } from "@angular/material/divider";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import {
 	ActivatedRoute,
 	type Params,
 	Router,
 	RouterLink,
 } from "@angular/router";
-import { PostsService } from "../../services/posts.service";
-import { ImportService } from "../../services/imports.service";
 import { z } from "zod";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import type { Tag, Creator } from "../../schemas";
-import { MatDialog } from "@angular/material/dialog";
-import { CreateTagDialog } from "../../dialogs/create-tag-dialog/create-tag-dialog.component";
 import { CreateCreatorDialog } from "../../dialogs/create-creator-dialog/create-creator-dialog.component";
-import { MatButtonModule } from "@angular/material/button";
-import { MatIconModule } from "@angular/material/icon";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { FormsModule } from "@angular/forms";
-import { MatDividerModule } from "@angular/material/divider";
-import { MatInputModule } from "@angular/material/input";
-import { MatCheckboxModule } from "@angular/material/checkbox";
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { CreateTagDialog } from "../../dialogs/create-tag-dialog/create-tag-dialog.component";
 import { DurationPipe } from "../../pipes/duration.pipe";
-import {
-	type MatChipInputEvent,
-	MatChipsModule,
-} from "@angular/material/chips";
-import {
-	MatAutocompleteModule,
-	type MatAutocompleteSelectedEvent,
-} from "@angular/material/autocomplete";
+import type { Creator, Tag } from "../../schemas";
 import { CreatorsService, TagsService } from "../../services";
-import { COMMA, ENTER } from "@angular/cdk/keycodes";
+import { ImportService } from "../../services/imports.service";
+import { PostsService } from "../../services/posts.service";
 
 @Component({
 	selector: "app-create-post-page",

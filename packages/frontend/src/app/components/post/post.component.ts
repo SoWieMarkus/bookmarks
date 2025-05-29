@@ -1,14 +1,14 @@
 import { Component, computed, inject, input } from "@angular/core";
-import type { Post } from "../../schemas/post";
-import { PostsService } from "../../services/posts.service";
+import { MatButtonModule } from "@angular/material/button";
 import { MatChipsModule } from "@angular/material/chips";
+import { MatIconModule } from "@angular/material/icon";
 import { RouterLink } from "@angular/router";
-import type { Creator } from "../../schemas";
-import { CreatorsService } from "../../services";
 import { DurationPipe } from "../../pipes/duration.pipe";
 import { ShortenPipe } from "../../pipes/shorten.pipe";
-import { MatIconModule } from "@angular/material/icon";
-import { MatButtonModule } from "@angular/material/button";
+import type { Creator } from "../../schemas";
+import type { Post } from "../../schemas/post";
+import { CreatorsService } from "../../services";
+import { PostsService } from "../../services/posts.service";
 
 @Component({
 	selector: "app-post",

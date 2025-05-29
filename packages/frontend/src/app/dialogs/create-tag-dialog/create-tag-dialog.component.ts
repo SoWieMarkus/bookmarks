@@ -1,17 +1,17 @@
 import { Component, computed, inject, model, signal } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
 import {
 	MAT_DIALOG_DATA,
 	MatDialogModule,
 	MatDialogRef,
 } from "@angular/material/dialog";
-import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { FormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
-import { TagsService } from "../../services/tags.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { type Tag, TagSchema } from "../../schemas";
+import { TagsService } from "../../services/tags.service";
 
 @Component({
 	selector: "app-create-tag-dialog",

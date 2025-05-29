@@ -1,12 +1,12 @@
 import { Component, inject } from "@angular/core";
-import { TagsService } from "../../services/tags.service";
-import { MatListModule } from "@angular/material/list";
 import { MatButtonModule } from "@angular/material/button";
-import { MatIconModule } from "@angular/material/icon";
 import { MatDialog } from "@angular/material/dialog";
+import { MatIconModule } from "@angular/material/icon";
+import { MatListModule } from "@angular/material/list";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { CreateTagDialog } from "../../dialogs/create-tag-dialog/create-tag-dialog.component";
 import type { Tag } from "../../schemas";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { TagsService } from "../../services/tags.service";
 
 @Component({
 	selector: "app-tags-page",

@@ -1,8 +1,8 @@
-import { computed, inject, Injectable, signal } from "@angular/core";
-import type { Post, PostTemplate } from "../schemas/post";
-import { BackendService } from "./backend.service";
+import { Injectable, computed, inject, signal } from "@angular/core";
 import type { Schema } from "@bookmarks/shared";
 import type { z } from "zod";
+import type { Post, PostTemplate } from "../schemas/post";
+import { BackendService } from "./backend.service";
 
 @Injectable({
 	providedIn: "root",

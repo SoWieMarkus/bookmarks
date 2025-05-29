@@ -1,17 +1,17 @@
 import {
 	Component,
+	type OnInit,
 	computed,
 	inject,
-	type OnInit,
 	signal,
 } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { CreatorsService, PostsService } from "../../services";
-import type { Creator } from "../../schemas";
-import { PostComponent } from "../../components/post/post.component";
-import { MatIconModule } from "@angular/material/icon";
 import { MatDialog } from "@angular/material/dialog";
+import { MatIconModule } from "@angular/material/icon";
+import { ActivatedRoute, Router } from "@angular/router";
+import { PostComponent } from "../../components/post/post.component";
 import { CreateCreatorDialog } from "../../dialogs/create-creator-dialog/create-creator-dialog.component";
+import type { Creator } from "../../schemas";
+import { CreatorsService, PostsService } from "../../services";
 
 @Component({
 	selector: "app-creator-details-page",
