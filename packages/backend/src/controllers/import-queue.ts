@@ -40,7 +40,7 @@ export const getImportQueue: RequestHandler = async (request, response) => {
 
     const items = await database.importQueueItem.findMany({
         where: { userId },
-        orderBy: { createdAt: "asc" }
+        orderBy: { createdAt: "desc" }
     });
 
     response.status(200).json(items);
