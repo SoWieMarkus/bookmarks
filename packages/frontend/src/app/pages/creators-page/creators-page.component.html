@@ -7,10 +7,10 @@
       <span>{{ creator.name }}</span>
     </div>
     <div class="item-edit">
-      <button mat-icon-button (click)="openEditCreatorDialog(creator)">
+      <button mat-icon-button (click)="$event.stopPropagation(); openEditCreatorDialog(creator)">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button (click)="remove(creator)">
+      <button mat-icon-button (click)="$event.stopPropagation(); remove(creator)">
         <mat-icon>delete</mat-icon>
       </button>
     </div>
