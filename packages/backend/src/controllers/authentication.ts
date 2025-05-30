@@ -97,24 +97,10 @@ export const remove: RequestHandler = async (request, response) => {
 	const { password } = data;
 	const userWithPassword = await database.user.findUnique({
 		where: { id: userId },
-		select: { passwordHash: true },
-	});
-	if (userWithPassword === null) {
-		throw createHttpError(404, "User not found.");
-	}
-
-	const isPasswordValid = await bcrypt.compare(password, userWithPassword.passwordHash);
-
-	if (!isPasswordValid) {
-		throw createHttpError(400, "Invalid password.");
-	}
-
-	const user = await database.user.findUnique({
-		where: { id: userId },
 	});
 
-	if (user === null) {
-		throw createHttpError(404, "User not found.");
+	if (userWithPassword?.passwordHash === null || userWithPassword === null || await bcrypt.compare(password, userWithPassword?.passwordHash)) {
+		throw createHttpError(400, "Bad Request.");
 	}
 
 	await database.user.delete({
