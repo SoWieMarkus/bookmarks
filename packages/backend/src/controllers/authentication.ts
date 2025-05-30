@@ -99,7 +99,11 @@ export const remove: RequestHandler = async (request, response) => {
 		where: { id: userId },
 	});
 
-	if (userWithPassword?.passwordHash === null || userWithPassword === null || await bcrypt.compare(password, userWithPassword?.passwordHash)) {
+	if (
+		userWithPassword?.passwordHash === null ||
+		userWithPassword === null ||
+		(await bcrypt.compare(password, userWithPassword?.passwordHash))
+	) {
 		throw createHttpError(400, "Bad Request.");
 	}
 
