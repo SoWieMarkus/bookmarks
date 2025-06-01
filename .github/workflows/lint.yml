@@ -17,5 +17,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Build Angular project
+        run: npm run build
+
       - name: Run Biome CI check
         run: npx @biomejs/biome ci
