@@ -9,6 +9,8 @@ on:
 jobs:
   biome:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: file:./test.db
 
     steps:
       - name: Checkout repository
