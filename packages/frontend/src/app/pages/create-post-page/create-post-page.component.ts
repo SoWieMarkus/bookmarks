@@ -295,23 +295,27 @@ export class CreatePostPage implements OnInit {
 		});
 	}
 
-	protected removeImportItem() {
+	protected async removeImportItem() {
 		const id = this.id();
 		if (id === null) {
 			console.error("Error removing import item: Import ID is null.");
 			return;
 		}
 
-		if (confirm("Are you sure you want to remove this import item? This action cannot be undone.")) {
-			this.importService.remove(id);
-			const next = this.importService.getNext();
-			if (next === null) {
-				return;
-			}
-			this.router.navigate(["/create"], {
-				queryParams: { importId: next.id },
-			});
+		if (!confirm("Are you sure you want to import this item? This action cannot be undone.")) {
+			return;
 		}
+		this.preparing.set(true);
+		await this.importService.remove(id);
+		const next = this.importService.getNext();
+		this.preparing.set(false);
+
+		if (next === null) {
+			return;
+		}
+		this.router.navigate(["/create"], {
+			queryParams: { importId: next.id },
+		});
 	}
 
 	protected skipImportItem() {

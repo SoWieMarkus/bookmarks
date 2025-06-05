@@ -11,7 +11,7 @@
     } @else {
     <image-cropper class="image-cropper" [roundCropper]="true" [imageChangedEvent]="onFileSelectedEvent()"
       [imageURL]="draftImageUrl()" [maintainAspectRatio]="true" [aspectRatio]="1 / 1" format="jpeg"
-      (imageCropped)="imageCropped($event)"></image-cropper>
+      (imageCropped)="imageCropped($event)" (loadImageFailed)="loadImageFailed()"></image-cropper>
     }
     <mat-form-field appearance="outline" class="username">
       <mat-label>Creator Name</mat-label>

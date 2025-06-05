@@ -2,6 +2,7 @@ import { Component, inject, model, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -11,7 +12,7 @@ import { ImportService } from "../../services/imports.service";
 
 @Component({
 	selector: "app-import-page",
-	imports: [MatListModule, RouterLink, FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule],
+	imports: [MatListModule, RouterLink, FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule],
 	templateUrl: "./import-page.component.html",
 	styleUrl: "./import-page.component.scss",
 })

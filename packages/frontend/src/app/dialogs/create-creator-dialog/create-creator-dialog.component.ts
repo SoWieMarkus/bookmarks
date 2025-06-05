@@ -127,4 +127,12 @@ export class CreateCreatorDialog {
 			this.attributeImage.set(base64Image);
 		};
 	}
+
+	protected loadImageFailed() {
+		this.snackbar.open("Failed to load image", "Close", {
+			duration: 3000,
+		});
+		this.draftImageUrl.set(undefined);
+		this.onFileSelectedEvent.set(null);
+	}
 }
