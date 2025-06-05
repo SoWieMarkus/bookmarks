@@ -18,30 +18,32 @@
   }
 
 </mat-toolbar>
-<div class="container">
-  @if (authenticationService.isFetchingData()) {
-  <div class="loading">
-    <mat-spinner></mat-spinner>
-    Loading bookmarks ...
+<div class="page">
+  <div class="container">
+    @if (authenticationService.isFetchingData()) {
+    <div class="loading">
+      <mat-spinner></mat-spinner>
+      Loading bookmarks ...
+    </div>
+    } @else {
+    <router-outlet />
+    }
   </div>
-  } @else {
-  <router-outlet />
-  }
+  <mat-divider></mat-divider>
+  <footer>
+    <div>
+      <a href="mailto:markus.u.wieland@gmail.com">Contact</a>
+      <a> | </a>
+      <a href="/" (click)="export()">Export</a>
+      @if (!authenticationService.isTokenExpired()) {
+      <span> | </span>
+      <a class="delete-account" (click)="deleteAccount()">Delete Account</a>
+      }
+      @if (profileService.user() !== null) {
+      <span> | </span>
+      <span>Logged in as <span class="user">{{profileService.user()?.username}}</span></span>
+      }
+    </div>
+    <a>© {{year}}, Markus Wieland</a>
+  </footer>
 </div>
-<mat-divider></mat-divider>
-<footer>
-  <div>
-    <a href="mailto:markus.u.wieland@gmail.com">Contact</a>
-    <a> | </a>
-    <a href="/" (click)="export()">Export</a>
-    @if (!authenticationService.isTokenExpired()) {
-    <span> | </span>
-    <a class="delete-account" (click)="deleteAccount()">Delete Account</a>
-    }
-    @if (profileService.user() !== null) {
-    <span> | </span>
-    <span>Logged in as <span class="user">{{profileService.user()?.username}}</span></span>
-    }
-  </div>
-  <a>© {{year}}, Markus Wieland</a>
-</footer>
