@@ -48,4 +48,11 @@ export class ImportService {
 			return newItems;
 		});
 	}
+
+	public shuffle() {
+		this.items.update((currentItems) => {
+			const shuffledItems = [...currentItems].sort(() => Math.random() - 0.5);
+			return shuffledItems;
+		});
+	}
 }
