@@ -195,30 +195,39 @@ export class CreatePostPage implements OnInit {
 	protected async loadFromUrl(url: string) {
 		// clear will reset the ID, so we need to cache it here
 		const id = this.id();
-		this.clear();
+
+		if (this.mode() !== "edit") {
+			this.clear();
+		}
+
 		this.id.set(id);
 		this.attributeUrl.set(url);
 
 		this.loadingUrl.set(true);
-		try {
-			const template = await this.postsService.url(url);
-			this.attributeTitle.set(template.title);
-			this.attributeDescription.set(template.description ?? "");
-			this.attributeReadLater.set(false);
-			this.attributeUrl.set(template.url);
-			if (typeof template.duration !== "string") {
-				this.attributeDuration.set(template.duration ?? 0);
-			} else {
-				console.warn("Duration is a string, expected a number.", template.duration);
-			}
-			this.thumbnailUrl.set(template.thumbnail);
-		} catch (error) {
-			console.error("Error loading URL:", error);
-			this.snackbar.open("An error occurred while loading the URL. Please check the URL and try again.", "Close", {
-				duration: 5000,
+
+		this.postsService
+			.url(url)
+			.then((template) => {
+				this.attributeTitle.set(template.title);
+				this.attributeDescription.set(template.description ?? "");
+				this.attributeReadLater.set(false);
+				this.attributeUrl.set(template.url);
+				if (typeof template.duration !== "string") {
+					this.attributeDuration.set(template.duration ?? 0);
+				} else {
+					console.warn("Duration is a string, expected a number.", template.duration);
+				}
+				this.thumbnailUrl.set(template.thumbnail);
+			})
+			.catch((error) => {
+				console.error("Error loading URL:", error);
+				this.snackbar.open("An error occurred while loading the URL. Please check the URL and try again.", "Close", {
+					duration: 5000,
+				});
+			})
+			.finally(() => {
+				this.loadingUrl.set(false);
 			});
-		}
-		this.loadingUrl.set(false);
 	}
 
 	protected async commit() {

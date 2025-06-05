@@ -2,26 +2,27 @@ import axios from "axios";
 import * as cheerio from "cheerio";
 
 export const parseDuration = (duration: string) => {
-	// Check if the duration is just a number (assuming it's in seconds)
+	// If input is just a number in string form
 	if (/^\d+$/.test(duration)) {
-		return Number.parseInt(duration, 10); // Return the number as seconds
+		return Number.parseInt(duration, 10);
 	}
 
-	// Check if the duration is in the ISO 8601 time format (e.g., T1H25M58S, T25M58S, T58S)
-	const iso8601Pattern = /^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?$/;
-	const match = iso8601Pattern.exec(duration);
+	// Normalize to always have 'PT' for easier parsing
+	let iso = duration.startsWith("P") ? duration : `P${duration}`;
+	if (!iso.includes("T")) iso = iso.replace("P", "PT");
 
-	if (match === null || (!match[1] && !match[2] && !match[3] && !match[4])) {
+	// Match ISO 8601 duration (supports hours, minutes, seconds)
+	const regex = /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/;
+	const match = regex.exec(iso);
+	if (!match) {
+		return duration;
+	}
+	const [, h, m, s] = match;
+	if (h === undefined && m === undefined && s === undefined) {
 		return duration;
 	}
 
-	const days = Number.parseInt(match[1] || "0", 10); // Days
-	const hours = Number.parseInt(match[2] || "0", 10); // Hours
-	const minutes = Number.parseInt(match[3] || "0", 10); // Minutes
-	const seconds = Number.parseInt(match[4] || "0", 10); // Seconds
-
-	// Convert everything to seconds and return
-	return days * 86400 + hours * 3600 + minutes * 60 + seconds;
+	return Number.parseInt(h ?? "0", 10) * 3600 + Number.parseInt(m ?? "0", 10) * 60 + Number.parseInt(s ?? "0", 10);
 };
 
 export const getMetaTagsOfUrl = async (url: string) => {
@@ -36,7 +37,10 @@ export const getMetaTagsOfUrl = async (url: string) => {
 		$("meta[property='og:image']").attr("content") ?? $("meta[name='twitter:image']").attr("content") ?? null;
 
 	const duration =
-		$("meta[property='video:duration']").attr("content") ?? $("meta[itemprop='duration']").attr("content") ?? null;
+		$("meta[property='og:video:duration']").attr("content") ??
+		$("meta[property='video:duration']").attr("content") ??
+		$("meta[itemprop='duration']").attr("content") ??
+		null;
 
 	return {
 		title,
