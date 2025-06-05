@@ -1,11 +1,23 @@
 # Bookmarks
 
-This is a small project from me to organize my bookmarks.
+This is a simple app to manage bookmarks (articles, clips, videos) from multiple platforms. Easily save and organize your favorite links, with automatic extraction of meta tags from URLs for details like title, thumbnail, and duration.
 
-## Setup
+With this app, you can quickly add bookmarks from anywhere on the web, categorize them, and search through your collection with ease. The platform supports a variety of content types, making it ideal for keeping track of interesting articles, memorable videos, and useful resources. Meta information is fetched automatically.
 
-1. Make sure you have installed npm and angular cli.
-2. Run `npm install`
-3. Create a `packages/backend/.env` file according to the `.env.example` file in this directory.
-4. Setup the prisma database with `npm run database --workspace @narflympics/backend`
-5. Run `npm start`
+## Getting Started
+
+1. Create a `packages/backend/.env` file based on the provided example.
+2. Build the Docker image:
+
+   ```sh
+   docker build -t bookmarks-app .
+   ```
+
+3. Run the Docker container:
+
+   ```sh
+   docker run -p 3000:<port_from_env> bookmarks-app
+   ```
+
+   This will start the backend server on port 3000.  
+   You can adjust the port mapping as needed.
