@@ -9,7 +9,7 @@
     "@biomejs/biome": "1.9.4"
   },
   "scripts": {
-    "start": "npm run build --workspace @bookmarks/shared && cd packages/frontend && ng build --configuration=development && cd ../.. && npm run build --workspace @bookmarks/backend && npm start --workspace @bookmarks/backend",
+    "setup": "npm run build --workspace @bookmarks/shared && cd packages/frontend && ng build --configuration=development && cd ../.. && npm run build --workspace @bookmarks/backend && npm start --workspace @bookmarks/backend",
     "lint": "npx @biomejs/biome check --write"
   }
 }
