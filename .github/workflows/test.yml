@@ -18,7 +18,7 @@ jobs:
         run: npm install
 
       - name: Build Angular project
-        run: npm run build
+        run: npm run build --configuration production --workspace=@bookmarks/frontend
 
       - name: Run Biome CI check
         run: npx @biomejs/biome ci
