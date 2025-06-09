@@ -71,7 +71,7 @@
       }
     </mat-chip-grid>
 
-    <input matInput name="creator" placeholder="Enter Creator..." [(ngModel)]="currentCreator"
+    <input #inputCreator matInput name="creator" placeholder="Enter Creator..." [(ngModel)]="currentCreator"
       [matChipInputFor]="chipGridCreator" [matAutocomplete]="autoCreator"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addCreator($event)" />
 
@@ -101,8 +101,8 @@
       }
     </mat-chip-grid>
 
-    <input matInput name="tag" placeholder="Enter Tag ..." [(ngModel)]="currentTag" [matChipInputFor]="chipGridTag"
-      [matAutocomplete]="autoTag" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+    <input #inputTag matInput name="tag" placeholder="Enter Tag ..." [(ngModel)]="currentTag"
+      [matChipInputFor]="chipGridTag" [matAutocomplete]="autoTag" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
       (matChipInputTokenEnd)="addTag($event)" />
     <button mat-icon-button matSuffix color="primary" type="button" (click)="addTagManually(currentTag())">
       <mat-icon>add</mat-icon>
