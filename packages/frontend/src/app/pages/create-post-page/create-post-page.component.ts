@@ -13,6 +13,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ActivatedRoute, type Params, Router, RouterLink } from "@angular/router";
+import { Schema } from "@bookmarks/shared";
 import { z } from "zod";
 import { CreateCreatorDialog } from "../../dialogs/create-creator-dialog/create-creator-dialog.component";
 import { CreateTagDialog } from "../../dialogs/create-tag-dialog/create-tag-dialog.component";
@@ -198,6 +199,13 @@ export class CreatePostPage implements OnInit {
 	protected async loadFromUrl(url: string) {
 		// clear will reset the ID, so we need to cache it here
 		const id = this.id();
+		const { success } = Schema.post.parseByUrl.safeParse(url);
+		if (!success) {
+			this.snackbar.open("The provided URL is not valid. Please check the URL and try again.", "Close", {
+				duration: 5000,
+			});
+			return;
+		}
 
 		if (this.mode() !== "edit") {
 			this.clear();

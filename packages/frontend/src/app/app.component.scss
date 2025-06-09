@@ -4,6 +4,7 @@ mat-toolbar {
   position: sticky;
   top: 0;
   z-index: 1000;
+  height: 56px;
   @include mat.toolbar-overrides((container-background-color: var(--mat-sys-primary-container),
       container-text-color: var(--mat-sys-on-surface),
     ));
