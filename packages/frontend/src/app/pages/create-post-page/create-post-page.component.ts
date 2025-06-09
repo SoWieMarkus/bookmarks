@@ -368,6 +368,7 @@ export class CreatePostPage implements OnInit {
 
 	protected removeCreator(creator: Creator) {
 		this.attributeCreators.set(this.attributeCreators().filter((c) => c.id !== creator.id));
+		this.inputCreator().nativeElement.focus();
 	}
 
 	protected selectCreator(event: MatAutocompleteSelectedEvent) {
@@ -404,6 +405,7 @@ export class CreatePostPage implements OnInit {
 
 	protected removeTag(tag: Tag) {
 		this.attributeTags.set(this.attributeTags().filter((t) => t.id !== tag.id));
+		this.inputTag().nativeElement.focus();
 	}
 
 	protected selectTag(event: MatAutocompleteSelectedEvent) {
