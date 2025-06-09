@@ -1,5 +1,5 @@
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
-import { Component, type OnInit, computed, inject, model, signal } from "@angular/core";
+import { Component, type ElementRef, type OnInit, computed, inject, model, signal, viewChild } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatAutocompleteModule, type MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
 import { MatButtonModule } from "@angular/material/button";
@@ -61,6 +61,9 @@ export class CreatePostPage implements OnInit {
 	protected readonly attributeTags = model<Tag[]>([]);
 	protected readonly attributeCreators = model<Creator[]>([]);
 	protected readonly thumbnailUrl = signal<string | null>(null);
+
+	protected readonly inputCreator = viewChild.required<ElementRef<HTMLInputElement>>("inputCreator");
+	protected readonly inputTag = viewChild.required<ElementRef<HTMLInputElement>>("inputTag");
 
 	// logic for filtering creators based on user input
 	protected readonly currentCreator = model("");
@@ -361,18 +364,19 @@ export class CreatePostPage implements OnInit {
 
 	protected selectCreator(event: MatAutocompleteSelectedEvent) {
 		if (this.attributeCreators().some((creator) => creator.id === event.option.value.id)) {
-			this.currentCreator.set("");
+			this.clearCreatorInput();
 			return;
 		}
 		this.attributeCreators.update((creators) => [...creators, event.option.value]);
 		event.option.deselect();
-		this.currentCreator.set("");
+		this.clearCreatorInput();
 	}
 
 	protected async addCreator(event: MatChipInputEvent) {
 		const value = (event.value ?? "").trim();
 		this.addCreatorManually(value);
 		event.chipInput?.clear();
+		this.clearCreatorInput();
 	}
 
 	protected async addCreatorManually(value: string) {
@@ -380,7 +384,14 @@ export class CreatePostPage implements OnInit {
 		let creator = this.creatorsService.creators().find((creator) => creator.name.toLowerCase() === value.toLowerCase());
 		creator ??= await this.creatorsService.add(value, null);
 		this.attributeCreators.update((creators) => [...creators, creator]);
+		this.clearCreatorInput();
+	}
+
+	protected clearCreatorInput() {
+		const inputCreator = this.inputCreator().nativeElement;
+		inputCreator.value = "";
 		this.currentCreator.set("");
+		inputCreator.focus();
 	}
 
 	protected removeTag(tag: Tag) {
@@ -389,18 +400,19 @@ export class CreatePostPage implements OnInit {
 
 	protected selectTag(event: MatAutocompleteSelectedEvent) {
 		if (this.attributeTags().some((tag) => tag.id === event.option.value.id)) {
-			this.currentTag.set("");
+			this.clearTagInput();
 			return;
 		}
 		this.attributeTags.update((tags) => [...tags, event.option.value]);
 		event.option.deselect();
-		this.currentTag.set("");
+		this.clearTagInput();
 	}
 
 	protected async addTag(event: MatChipInputEvent) {
 		const value = (event.value ?? "").trim();
 		this.addTagManually(value);
 		event.chipInput?.clear();
+		this.clearTagInput();
 	}
 
 	protected async addTagManually(value: string) {
@@ -408,6 +420,13 @@ export class CreatePostPage implements OnInit {
 		let tag = this.tagsService.tags().find((tag) => tag.title.toLowerCase() === value.toLowerCase());
 		tag ??= await this.tagsService.add(value);
 		this.attributeTags.update((tags) => [...tags, tag]);
+		this.clearTagInput();
+	}
+
+	protected clearTagInput() {
+		const inputTag = this.inputTag().nativeElement;
+		inputTag.value = "";
 		this.currentTag.set("");
+		inputTag.focus();
 	}
 }
