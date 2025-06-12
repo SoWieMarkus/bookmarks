@@ -62,7 +62,6 @@ footer {
   /* Adjust for fixed toolbar height */
   display: flex;
   flex-direction: column;
-  flex: 1 0 auto;
   min-height: calc(100vh - 56px);
   max-height: calc(100vh - 56px);
   overflow-y: scroll;
