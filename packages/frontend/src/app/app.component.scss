@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 
 mat-toolbar {
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 1000;
   height: 56px !important;
@@ -58,6 +58,8 @@ footer {
 }
 
 .page {
+  margin-top: 56px;
+  /* Adjust for fixed toolbar height */
   display: flex;
   flex-direction: column;
   flex: 1 0 auto;
