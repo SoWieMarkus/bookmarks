@@ -137,6 +137,8 @@ export class CreatePostPage implements OnInit {
 		// biome-ignore lint/complexity/useLiteralKeys: Doesn't work here
 		const importId = params["importId"];
 
+		window.scrollTo(0, 0);
+
 		if (postId !== undefined && this.loadExistingPost(postId)) {
 			this.mode.set("edit");
 			this.id.set(postId);
