@@ -30,7 +30,7 @@
     "@types/cors": "^2.8.18",
     "@types/express": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.9",
-    "@types/sharp": "^0.31.1",
+    "@types/sharp": "^0.32.0",
     "nodemon": "^3.1.10",
     "prisma": "^6.8.2",
     "ts-jest": "^29.3.4",
