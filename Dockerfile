@@ -20,5 +20,5 @@ RUN npm run build
 EXPOSE $PORT
 
 # Entrypoint: deploy migrations and start backend
-RUN chmod +x /usr/src/app/packages/backend/entrypoint.sh
-CMD ["/usr/src/app/packages/backend/entrypoint.sh"]
+RUN chmod +x /usr/src/app/entrypoint.sh
+CMD ["/usr/src/app/entrypoint.sh"]
