@@ -17,9 +17,6 @@ RUN npx prisma generate
 WORKDIR /usr/src/app
 RUN npm run build
 
-# Convert wordlist to dictionary
-RUN npm run dictionary
-
 EXPOSE $PORT
 
 # Entrypoint: deploy migrations and start backend
