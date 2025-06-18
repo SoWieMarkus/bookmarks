@@ -24,7 +24,7 @@
     ]
   },
   "devDependencies": {
-    "@types/axios": "^0.9.36",
+    "@types/axios": "^0.14.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/cheerio": "^0.22.35",
     "@types/cors": "^2.8.18",
