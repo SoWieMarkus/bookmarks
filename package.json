@@ -5,12 +5,26 @@
     "packages/*"
   ],
   "devDependencies": {
-    "typescript": "^5.4.0",
-    "@biomejs/biome": "1.9.4"
+    "@biomejs/biome": "1.9.4",
+    "@types/jest": "^30.0.0",
+    "jest": "^30.0.0",
+    "ts-jest": "^29.4.0",
+    "typescript": "^5.4.0"
+  },
+  "overrides": {
+    "glob": "11.0.1"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "dist",
+      "node_modules"
+    ]
   },
   "scripts": {
     "setup": "npm run build --workspace @bookmarks/shared && cd packages/frontend && ng build --configuration=development && cd ../.. && npm run database --workspace @bookmarks/backend && npm run build --workspace @bookmarks/backend",
     "lint": "npx @biomejs/biome check --write",
-    "test": "npm test --workspace=@bookmarks/backend"
+    "test": "jest"
   }
 }
