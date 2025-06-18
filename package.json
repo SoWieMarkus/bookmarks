@@ -25,6 +25,7 @@
   "scripts": {
     "setup": "npm run build --workspace @bookmarks/shared && cd packages/frontend && ng build --configuration=development && cd ../.. && npm run database --workspace @bookmarks/backend && npm run build --workspace @bookmarks/backend",
     "lint": "npx @biomejs/biome check --write",
-    "test": "jest"
+    "test": "jest",
+    "build": "npm run build --workspaces --if-present"
   }
 }
