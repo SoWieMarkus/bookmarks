@@ -5,7 +5,7 @@ import z from "zod";
 	name: "duration",
 })
 export class DurationPipe implements PipeTransform {
-	public transform(value: unknown, ...args: unknown[]): unknown {
+	public transform(value: unknown, ..._: unknown[]): unknown {
 		const { data, success } = z.number().safeParse(value);
 		if (!success) {
 			return null;

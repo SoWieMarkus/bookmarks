@@ -1,4 +1,4 @@
-import { Component, type OnInit, inject } from "@angular/core";
+import { Component, inject, type OnInit } from "@angular/core";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDividerModule } from "@angular/material/divider";

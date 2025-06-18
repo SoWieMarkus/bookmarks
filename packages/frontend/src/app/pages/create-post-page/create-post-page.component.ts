@@ -1,5 +1,5 @@
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
-import { Component, type ElementRef, type OnInit, computed, inject, model, signal, viewChild } from "@angular/core";
+import { Component, computed, type ElementRef, inject, model, type OnInit, signal, viewChild } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatAutocompleteModule, type MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
 import { MatButtonModule } from "@angular/material/button";
