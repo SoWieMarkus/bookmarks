@@ -8,7 +8,7 @@ With this app, you can quickly add bookmarks from anywhere on the web, categoriz
 
 ## Getting Started
 
-1. Create a `packages/backend/.env` file based on the provided example.
+1. Create a `.env` file based on the provided example.
 2. Build the Docker image:
 
    ```sh
