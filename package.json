@@ -24,13 +24,6 @@
       "node_modules"
     ]
   },
-  "turbo": {
-    "tasks": {
-      "build": {
-        "dependsOn": ["^build"]
-      }
-    }
-  },
   "scripts": {
     "setup": "npm run build --workspace @bookmarks/shared && cd packages/frontend && ng build --configuration=development && cd ../.. && npm run database --workspace @bookmarks/backend && npm run build --workspace @bookmarks/backend",
     "lint": "npx @biomejs/biome check --write",
