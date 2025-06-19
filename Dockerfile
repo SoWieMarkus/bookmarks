@@ -8,16 +8,12 @@ COPY . .
 RUN npm install 
 RUN npm install -g @angular/cli 
 
-# Generate Prisma Client
-WORKDIR /usr/src/app/packages/backend
-ENV PORT=3000
+# Setup prisma database
 ENV DATABASE_URL=file:/usr/src/app/bookmarks.db
 RUN npx prisma generate
 
-WORKDIR /usr/src/app
+# Build the application
 RUN npm run build
-
-EXPOSE $PORT
 
 # Entrypoint: deploy migrations and start backend
 RUN chmod +x /usr/src/app/entrypoint.sh

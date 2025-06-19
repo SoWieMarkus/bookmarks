@@ -9,6 +9,7 @@
     "@biomejs/biome": "2.0.0",
     "@types/jest": "^30.0.0",
     "jest": "^30.0.0",
+    "prisma": "^6.10.1",
     "ts-jest": "^29.4.0",
     "turbo": "^2.5.4",
     "typescript": "^5.4.0"
@@ -25,10 +26,14 @@
     ]
   },
   "scripts": {
-    "setup": "npm install && npm run database --workspace @bookmarks/backend && npm run build",
+    "setup": "npm install && npm run database && npm run build",
     "lint": "npx @biomejs/biome check --write",
     "test": "jest",
     "build": "turbo run build",
-    "start": "npm run dev --workspace @bookmarks/backend"
+    "start": "npm run dev --workspace @bookmarks/backend",
+    "database": "npx prisma migrate deploy && npx prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.10.1"
   }
 }

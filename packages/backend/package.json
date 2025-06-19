@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "nodemon src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js",
-    "database": "npx prisma migrate deploy && npx prisma generate"
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -17,12 +16,10 @@
     "@types/express": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.9",
     "nodemon": "^3.1.10",
-    "prisma": "^6.8.2",
     "ts-node": "^10.9.2"
   },
   "dependencies": {
     "@bookmarks/shared": "1.0.0",
-    "@prisma/client": "^6.8.2",
     "axios": "^1.9.0",
     "bcryptjs": "^3.0.2",
     "cheerio": "^1.0.0",
