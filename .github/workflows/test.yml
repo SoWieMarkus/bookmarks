@@ -1,4 +1,4 @@
-name: Biome CI
+name: Test & Biome CI
 
 on:
   push:
@@ -6,10 +6,8 @@ on:
       - "*"
 
 jobs:
-  biome:
+  test:
     runs-on: ubuntu-latest
-    env:
-      DATABASE_URL: file:./test.db
 
     steps:
       - name: Checkout repository
