@@ -50,13 +50,6 @@ mat-toolbar {
   text-align: center;
 }
 
-
-footer {
-  flex-shrink: 0;
-  padding: 1rem;
-  text-align: center;
-}
-
 .page {
   margin-top: 56px;
   /* Adjust for fixed toolbar height */
@@ -85,6 +78,27 @@ footer {
 
 .user {
   font-weight: bold;
+}
+
+footer {
+  flex-shrink: 0;
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+footer .footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+footer .footer-container>* {
+  display: inline-flex;
+  align-items: center;
 }
 
 @media (max-width: 1000px) {

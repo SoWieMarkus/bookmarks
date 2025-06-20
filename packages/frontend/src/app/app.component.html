@@ -31,17 +31,15 @@
   </div>
   <mat-divider></mat-divider>
   <footer>
-    <div>
+    <div class="footer-container">
       <a href="mailto:markus.u.wieland@gmail.com">Contact</a>
-      <a> | </a>
-      <a href="/" (click)="export()">Export</a>
+      <span> - </span>
+      <a href="https://github.com/SoWieMarkus/bookmarks"><mat-icon svgIcon="github"></mat-icon>Github</a>
       @if (!authenticationService.isTokenExpired()) {
-      <span> | </span>
+      <span> - </span>
+      <a href="/" (click)="export()">Export</a>
+      <span> - </span>
       <a class="delete-account" (click)="deleteAccount()">Delete Account</a>
-      }
-      @if (profileService.user() !== null) {
-      <span> | </span>
-      <span>Logged in as <span class="user">{{profileService.user()?.username}}</span></span>
       }
     </div>
     <a>© {{year}}, Markus Wieland</a>

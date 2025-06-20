@@ -2,9 +2,10 @@ import { Component, inject, type OnInit } from "@angular/core";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDividerModule } from "@angular/material/divider";
-import { MatIconModule } from "@angular/material/icon";
+import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { DomSanitizer } from "@angular/platform-browser";
 import { Router, RouterLink, RouterOutlet } from "@angular/router";
 import { AuthenticationService } from "./services/authentication.service";
 import { BackendService } from "./services/backend.service";
@@ -35,17 +36,28 @@ export class AppComponent implements OnInit {
 
 	protected readonly year = new Date().getFullYear();
 
+	private readonly sanitizer = inject(DomSanitizer);
+	private readonly registry = inject(MatIconRegistry);
+
 	protected logout(): void {
 		this.authenticationService.removeToken();
 		this.router.navigate(["/login"]);
 	}
 
 	public ngOnInit(): void {
+		this.initializeIcons();
 		if (this.authenticationService.isTokenExpired()) {
 			this.authenticationService.removeToken();
 			return;
 		}
 		this.authenticationService.initialize();
+	}
+
+	private initializeIcons() {
+		const icons = ["github"];
+		for (const icon of icons) {
+			this.registry.addSvgIcon(icon, this.sanitizer.bypassSecurityTrustResourceUrl(`icons/${icon}.svg`));
+		}
 	}
 
 	public deleteAccount() {
