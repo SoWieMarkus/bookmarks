@@ -13,90 +13,90 @@ import { PostsService } from "./services/posts.service";
 import { ProfileService } from "./services/profile.service";
 
 @Component({
-  selector: "app-root",
-  imports: [
-    RouterOutlet,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatBadgeModule,
-    RouterLink,
-    MatDividerModule,
-    MatProgressSpinnerModule,
-  ],
-  templateUrl: "./app.component.html",
-  styleUrl: "./app.component.scss",
+	selector: "app-root",
+	imports: [
+		RouterOutlet,
+		MatToolbarModule,
+		MatButtonModule,
+		MatIconModule,
+		MatBadgeModule,
+		RouterLink,
+		MatDividerModule,
+		MatProgressSpinnerModule,
+	],
+	templateUrl: "./app.component.html",
+	styleUrl: "./app.component.scss",
 })
 export class AppComponent implements OnInit {
-  private readonly sanitizer = inject(DomSanitizer);
-  private readonly registry = inject(MatIconRegistry);
-  protected readonly authenticationService = inject(AuthenticationService);
-  protected readonly profileService = inject(ProfileService);
-  protected readonly backendService = inject(BackendService);
-  protected readonly postsService = inject(PostsService);
-  protected readonly router = inject(Router);
+	private readonly sanitizer = inject(DomSanitizer);
+	private readonly registry = inject(MatIconRegistry);
+	protected readonly authenticationService = inject(AuthenticationService);
+	protected readonly profileService = inject(ProfileService);
+	protected readonly backendService = inject(BackendService);
+	protected readonly postsService = inject(PostsService);
+	protected readonly router = inject(Router);
 
-  protected readonly year = new Date().getFullYear();
+	protected readonly year = new Date().getFullYear();
 
-  constructor() {
-    this.initializeIcons();
-  }
+	constructor() {
+		this.initializeIcons();
+	}
 
-  protected logout(): void {
-    this.authenticationService.removeToken();
-    this.router.navigate(["/login"]);
-  }
+	protected logout(): void {
+		this.authenticationService.removeToken();
+		this.router.navigate(["/login"]);
+	}
 
-  public ngOnInit(): void {
-    if (this.authenticationService.isTokenExpired()) {
-      this.authenticationService.removeToken();
-      return;
-    }
-    this.authenticationService.initialize();
-  }
+	public ngOnInit(): void {
+		if (this.authenticationService.isTokenExpired()) {
+			this.authenticationService.removeToken();
+			return;
+		}
+		this.authenticationService.initialize();
+	}
 
-  private initializeIcons() {
-    const icons = ["github"];
-    for (const icon of icons) {
-      console.log(`Registering icon: ${icon}`);
-      this.registry.addSvgIcon(icon, this.sanitizer.bypassSecurityTrustResourceUrl(`icons/${icon}.svg`));
-    }
-  }
+	private initializeIcons() {
+		const icons = ["github"];
+		for (const icon of icons) {
+			console.log(`Registering icon: ${icon}`);
+			this.registry.addSvgIcon(icon, this.sanitizer.bypassSecurityTrustResourceUrl(`icons/${icon}.svg`));
+		}
+	}
 
-  public deleteAccount() {
-    const confirmed = confirm("Are you sure you want to delete your account? This action cannot be undone.");
+	public deleteAccount() {
+		const confirmed = confirm("Are you sure you want to delete your account? This action cannot be undone.");
 
-    if (!confirmed) {
-      return;
-    }
+		if (!confirmed) {
+			return;
+		}
 
-    const password = prompt("Please enter your password to confirm account deletion:");
+		const password = prompt("Please enter your password to confirm account deletion:");
 
-    if (!password) {
-      return;
-    }
+		if (!password) {
+			return;
+		}
 
-    this.backendService.authentication
-      .remove({ password })
-      .then(() => {
-        this.authenticationService.removeToken();
-        this.router.navigate(["/login"]);
-      })
-      .catch((error) => {
-        console.error("Error deleting account:", error);
-        alert(`Error deleting account: ${error.message}`);
-      });
-  }
+		this.backendService.authentication
+			.remove({ password })
+			.then(() => {
+				this.authenticationService.removeToken();
+				this.router.navigate(["/login"]);
+			})
+			.catch((error) => {
+				console.error("Error deleting account:", error);
+				alert(`Error deleting account: ${error.message}`);
+			});
+	}
 
-  protected export() {
-    const urls = this.postsService.posts().map((post) => post.url);
-    const blob = new Blob([urls.join("\n")], { type: "text/plain" });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "bookmarks.txt";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  }
+	protected export() {
+		const urls = this.postsService.posts().map((post) => post.url);
+		const blob = new Blob([urls.join("\n")], { type: "text/plain" });
+		const url = window.URL.createObjectURL(blob);
+		const a = document.createElement("a");
+		a.href = url;
+		a.download = "bookmarks.txt";
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+	}
 }
