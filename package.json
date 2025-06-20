@@ -8,6 +8,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.0.0",
     "@types/jest": "^30.0.0",
+    "concurrently": "^9.1.2",
     "jest": "^30.0.0",
     "prisma": "^6.10.1",
     "ts-jest": "^29.4.0",
@@ -30,7 +31,7 @@
     "lint": "npx @biomejs/biome check --write",
     "test": "jest",
     "build": "turbo run build",
-    "start": "npm run dev --workspace @bookmarks/backend",
+    "dev:all": "concurrently \"npm run dev --workspace @bookmarks/backend\" \"npm start --workspace @bookmarks/frontend\"",
     "database": "npx prisma migrate deploy && npx prisma generate"
   },
   "dependencies": {
