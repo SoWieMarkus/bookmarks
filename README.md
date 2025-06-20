@@ -23,3 +23,8 @@ With this app, you can quickly add bookmarks from anywhere on the web, categoriz
 
    This will start the backend server on port 3000.  
    You can adjust the port mapping as needed.
+
+## Development
+
+1. Run `npm run setup`
+2. Run `npm run dev:all`
