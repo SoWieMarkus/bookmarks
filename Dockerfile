@@ -1,19 +1,34 @@
-FROM node:24-alpine
+# --- Builder stage ---
+FROM node:24-alpine AS builder
 
 WORKDIR /usr/src/app
 
 COPY . .
 
-# Install dependencies
-RUN npm install 
-RUN npm install -g @angular/cli 
-
-# Setup prisma database
+# Install dependencies and build all packages
+RUN npm install
+RUN npm install -g @angular/cli
 ENV DATABASE_URL=file:/usr/src/app/bookmarks.db
 RUN npx prisma generate
-
-# Build the application
 RUN npm run build
+
+FROM node:24-alpine
+
+WORKDIR /usr/src/app
+
+# Copy only necessary files from each package
+COPY --from=builder /usr/src/app/package.json ./
+COPY --from=builder /usr/src/app/package-lock.json ./
+COPY --from=builder /usr/src/app/entrypoint.sh ./entrypoint.sh
+COPY --from=builder /usr/src/app/generated/prisma ./generated/prisma
+
+# Copy dist folders from each package
+COPY --from=builder /usr/src/app/packages/backend/dist ./packages/backend/dist
+COPY --from=builder /usr/src/app/packages/frontend/dist ./packages/frontend/dist
+COPY --from=builder /usr/src/app/packages/shared/dist ./packages/shared/dist
+
+# Install only production dependencies
+RUN npm install --omit=dev
 
 # Entrypoint: deploy migrations and start backend
 RUN chmod +x /usr/src/app/entrypoint.sh
