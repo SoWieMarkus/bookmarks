@@ -8,6 +8,7 @@ import { shuffleArray } from "@bookmarks/shared";
 import { PostComponent } from "../../components/post/post.component";
 import { FilterDialog } from "../../dialogs/filter-dialog/filter-dialog.component";
 import type { Post } from "../../schemas";
+import { FilterService } from "../../services/filter.service";
 import { PostsService } from "../../services/posts.service";
 
 const applyTagFilter = (posts: Post[], filterTags: string[]) => {
@@ -36,18 +37,17 @@ export class MainPage {
 	protected readonly dialog = inject(MatDialog);
 	protected readonly postsService = inject(PostsService);
 
-	private readonly filterCreators = signal<string[]>([]);
-	private readonly filterTags = signal<string[]>([]);
+	private readonly filterService = inject(FilterService);
 	private readonly shuffle = signal(false);
 
 	protected readonly posts = computed(() => {
 		const shuffle = this.shuffle();
 		let posts = [...this.postsService.posts()];
 
-		const filterCreators = this.filterCreators();
+		const filterCreators = this.filterService.creators();
 		posts = applyCreatorFilter(posts, filterCreators);
 
-		const filterTags = this.filterTags();
+		const filterTags = this.filterService.tags();
 		posts = applyTagFilter(posts, filterTags);
 
 		if (shuffle) {
@@ -60,16 +60,16 @@ export class MainPage {
 		this.dialog
 			.open(FilterDialog, {
 				data: {
-					tags: this.filterTags(),
-					creators: this.filterCreators(),
+					tags: this.filterService.tags(),
+					creators: this.filterService.creators(),
 				},
 				closeOnNavigation: true,
 			})
 			.afterClosed()
 			.subscribe((result) => {
 				if (result) {
-					this.filterTags.set(result.tags);
-					this.filterCreators.set(result.creators);
+					this.filterService.tags.set(result.tags);
+					this.filterService.creators.set(result.creators);
 				}
 			});
 	}
