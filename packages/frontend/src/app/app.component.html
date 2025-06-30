@@ -32,13 +32,11 @@
   <mat-divider></mat-divider>
   <footer>
     <div class="footer-container">
-      <a href="mailto:markus.u.wieland@gmail.com">Contact</a>
-      <span> - </span>
       <a href="https://github.com/SoWieMarkus/bookmarks"><mat-icon svgIcon="github"></mat-icon>Github</a>
+
+      <a href="mailto:markus.u.wieland@gmail.com">Contact</a>
       @if (!authenticationService.isTokenExpired()) {
-      <span> - </span>
       <a href="/" (click)="export()">Export</a>
-      <span> - </span>
       <a class="delete-account" (click)="deleteAccount()">Delete Account</a>
       }
     </div>
