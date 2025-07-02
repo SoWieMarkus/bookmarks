@@ -32,10 +32,7 @@
   <mat-divider></mat-divider>
   <footer>
     <div class="footer-container" style="column-gap: 1rem">
-      <a href="mailto:markus.u.wieland@gmail.com">Contact</a>
-      <span> - </span>
       <a href="https://github.com/SoWieMarkus/bookmarks"><mat-icon svgIcon="github"></mat-icon>Github</a>
-
       <a href="mailto:markus.u.wieland@gmail.com">Contact</a>
       @if (!authenticationService.isTokenExpired()) {
       <a href="/" (click)="export()">Export</a>
