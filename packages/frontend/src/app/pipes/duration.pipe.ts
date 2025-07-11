@@ -1,5 +1,5 @@
 import { Pipe, type PipeTransform } from "@angular/core";
-import z from "zod";
+import * as z from "zod";
 
 @Pipe({
 	name: "duration",

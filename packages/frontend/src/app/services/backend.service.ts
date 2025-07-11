@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import type { Schema } from "@bookmarks/shared";
 import type { Observable } from "rxjs";
-import type { z } from "zod";
+import type * as z from "zod";
 import { environment } from "../../environments/environment";
 import {
 	AuthenticationSchema,

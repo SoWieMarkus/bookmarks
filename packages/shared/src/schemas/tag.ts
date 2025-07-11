@@ -1,4 +1,4 @@
-import { z } from "zod";
+import * as z from "zod";
 
 export const add = z.object({
 	title: z.string().min(1, "Tag text is required").max(50, "Tag text must be at most 50 characters long").trim(),
