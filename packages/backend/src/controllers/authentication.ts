@@ -2,6 +2,7 @@ import { Schema } from "@bookmarks/shared";
 import bcrypt from "bcryptjs";
 import type { RequestHandler } from "express";
 import createHttpError from "http-errors";
+import z from "zod";
 import { database } from "../database";
 import { createToken } from "../utils";
 
@@ -9,7 +10,7 @@ export const register: RequestHandler = async (request, response) => {
 	const { success, data, error } = Schema.authentication.register.safeParse(request.body);
 
 	if (!success) {
-		throw createHttpError(400, error.errors[0].message);
+		throw createHttpError(400, z.prettifyError(error));
 	}
 
 	const { username, password } = data;
@@ -39,7 +40,7 @@ export const login: RequestHandler = async (request, response) => {
 	const { success, data, error } = Schema.authentication.login.safeParse(request.body);
 
 	if (!success) {
-		throw createHttpError(400, error.errors[0].message);
+		throw createHttpError(400, z.prettifyError(error));
 	}
 
 	const { username, password } = data;
@@ -91,7 +92,7 @@ export const remove: RequestHandler = async (request, response) => {
 
 	const { success, data, error } = Schema.authentication.remove.safeParse(request.body);
 	if (!success) {
-		throw createHttpError(400, error.errors[0].message);
+		throw createHttpError(400, z.prettifyError(error));
 	}
 
 	const { password } = data;

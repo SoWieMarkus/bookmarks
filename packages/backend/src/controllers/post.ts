@@ -1,6 +1,7 @@
 import { Schema } from "@bookmarks/shared";
 import type { RequestHandler } from "express";
 import createHttpError from "http-errors";
+import z from "zod";
 import { database } from "../database";
 import { getMetaTagsOfUrl } from "../utils/meta-tags";
 
@@ -12,7 +13,7 @@ export const addPost: RequestHandler = async (request, response) => {
 
 	const { success, data, error } = Schema.post.add.safeParse(request.body);
 	if (!success) {
-		throw createHttpError(400, error.errors[0].message);
+		throw createHttpError(400, z.prettifyError(error));
 	}
 
 	const existingPost = await database.post.findFirst({
@@ -108,7 +109,7 @@ export const editPost: RequestHandler = async (request, response) => {
 
 	const { success, data, error } = Schema.post.edit.safeParse(request.body);
 	if (!success) {
-		throw createHttpError(400, error.errors[0].message);
+		throw createHttpError(400, z.prettifyError(error));
 	}
 
 	const existingPost = await database.post.findUnique({
@@ -195,7 +196,7 @@ export const parseByUrl: RequestHandler = async (request, response) => {
 
 	const { success, data, error } = Schema.post.parseByUrl.safeParse(request.body);
 	if (!success) {
-		throw createHttpError(400, error.errors[0].message);
+		throw createHttpError(400, z.prettifyError(error));
 	}
 
 	const { url } = data;

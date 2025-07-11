@@ -1,6 +1,7 @@
 import { Schema } from "@bookmarks/shared";
 import type { RequestHandler } from "express";
 import createHttpError from "http-errors";
+import z from "zod";
 import { database } from "../database";
 import { resizeImage } from "../utils";
 
@@ -13,7 +14,7 @@ export const addCreator: RequestHandler = async (request, response) => {
 	const { success, data, error } = Schema.creator.add.safeParse(request.body);
 
 	if (!success) {
-		throw createHttpError(400, error.errors[0].message);
+		throw createHttpError(400, z.prettifyError(error));
 	}
 
 	const { name, image } = data;
@@ -91,7 +92,7 @@ export const editCreator: RequestHandler = async (request, response) => {
 	const { success, data, error } = Schema.creator.edit.safeParse(request.body);
 
 	if (!success) {
-		throw createHttpError(400, error.errors[0].message);
+		throw createHttpError(400, z.prettifyError(error));
 	}
 
 	const { name, image } = data;

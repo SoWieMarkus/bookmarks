@@ -1,6 +1,7 @@
 import { Schema } from "@bookmarks/shared";
 import type { RequestHandler } from "express";
 import createHttpError from "http-errors";
+import z from "zod";
 import { database } from "../database";
 
 export const addTag: RequestHandler = async (request, response) => {
@@ -11,7 +12,7 @@ export const addTag: RequestHandler = async (request, response) => {
 
 	const { success, data, error } = Schema.tag.add.safeParse(request.body);
 	if (!success) {
-		throw createHttpError(400, error.errors[0].message);
+		throw createHttpError(400, z.prettifyError(error));
 	}
 
 	const { title } = data;
@@ -94,7 +95,7 @@ export const editTag: RequestHandler = async (request, response) => {
 
 	const { success, data, error } = Schema.tag.edit.safeParse(request.body);
 	if (!success) {
-		throw createHttpError(400, error.errors[0].message);
+		throw createHttpError(400, z.prettifyError(error));
 	}
 
 	const { title } = data;
