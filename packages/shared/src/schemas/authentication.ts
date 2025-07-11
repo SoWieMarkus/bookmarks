@@ -1,4 +1,4 @@
-import { z } from "zod";
+import * as z from "zod";
 
 const MIN_LENGTH_USERNAME = 3;
 const MAX_LENGTH_USERNAME = 30;

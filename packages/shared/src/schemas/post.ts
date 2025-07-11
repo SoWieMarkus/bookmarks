@@ -1,4 +1,4 @@
-import z from "zod";
+import * as z from "zod";
 
 const MIN_POST_TITLE_LENGTH = 1;
 const MAX_POST_TITLE_LENGTH = 500;

@@ -2,7 +2,7 @@ import { Component, inject } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatChipsModule } from "@angular/material/chips";
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from "@angular/material/dialog";
-import { z } from "zod";
+import * as z from "zod";
 import type { Creator, Tag } from "../../schemas";
 import { CreatorsService, TagsService } from "../../services";
 

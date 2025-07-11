@@ -13,7 +13,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ActivatedRoute, type Params, Router, RouterLink } from "@angular/router";
-import { z } from "zod";
+import * as z from "zod";
 import { CreateCreatorDialog } from "../../dialogs/create-creator-dialog/create-creator-dialog.component";
 import { CreateTagDialog } from "../../dialogs/create-tag-dialog/create-tag-dialog.component";
 import { DurationPipe } from "../../pipes/duration.pipe";

@@ -7,7 +7,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { RouterLink } from "@angular/router";
-import z from "zod";
+import * as z from "zod";
 import { ImportService } from "../../services/imports.service";
 
 @Component({

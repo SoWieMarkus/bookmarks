@@ -9,7 +9,7 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { type ImageCroppedEvent, ImageCropperComponent } from "ngx-image-cropper";
-import { z } from "zod";
+import * as z from "zod";
 import { type Creator, CreatorSchema } from "../../schemas";
 import { CreatorsService } from "../../services";
 @Component({

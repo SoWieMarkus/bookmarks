@@ -1,4 +1,4 @@
-import z from "zod";
+import * as z from "zod";
 import { CreatorSchema } from "./creator";
 import { TagSchema } from "./tag";
 
@@ -8,7 +8,7 @@ export const PostSchema = z.object({
 	title: z.string(),
 	description: z.string().nullable(),
 	thumbnail: z.string().nullable(),
-	url: z.string().url(),
+	url: z.url(),
 	readLater: z.boolean(),
 	tags: z.array(TagSchema),
 	creators: z.array(CreatorSchema),

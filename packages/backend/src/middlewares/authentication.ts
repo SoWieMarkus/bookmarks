@@ -1,12 +1,12 @@
 import type { RequestHandler } from "express";
 import createHttpError from "http-errors";
 import jwt from "jsonwebtoken";
-import { z } from "zod";
+import * as z from "zod";
 import { database } from "../database";
 import { env } from "../utils";
 
 const PayloadSchema = z.object({
-	userId: z.string().uuid(),
+	userId: z.uuid(),
 	exp: z.number(),
 });
 

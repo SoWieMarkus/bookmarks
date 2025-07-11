@@ -1,6 +1,7 @@
 import { Schema } from "@bookmarks/shared";
 import type { RequestHandler } from "express";
 import createHttpError from "http-errors";
+import * as z from "zod";
 import { database } from "../database";
 
 export const addLinksToImportQueue: RequestHandler = async (request, response) => {
@@ -11,7 +12,7 @@ export const addLinksToImportQueue: RequestHandler = async (request, response) =
 
 	const { success, data, error } = Schema.importQueue.addMultiple.safeParse(request.body);
 	if (!success) {
-		throw createHttpError(400, error.errors[0].message);
+		throw createHttpError(400, z.prettifyError(error));
 	}
 
 	await database.importQueueItem.deleteMany({
