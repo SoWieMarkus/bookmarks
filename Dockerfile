@@ -1,5 +1,5 @@
 # --- Builder stage ---
-FROM node:24-alpine AS builder
+FROM node:24.4.1-alpine AS builder
 
 WORKDIR /usr/src/app
 
@@ -12,7 +12,7 @@ ENV DATABASE_URL=file:/usr/src/app/bookmarks.db
 RUN npx prisma generate
 RUN npm run build
 
-FROM node:24-alpine
+FROM node:24.4.1-alpine
 
 WORKDIR /usr/src/app
 
