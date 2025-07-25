@@ -28,7 +28,7 @@
     "express": "^5.1.0",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.2",
-    "sharp": "^0.34.2",
+    "sharp": "^0.34.3",
     "winston": "^3.17.0",
     "zod": "^4.0.0"
   }
