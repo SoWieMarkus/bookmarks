@@ -7,5 +7,6 @@
   "assignees": [
     "SoWieMarkus"
   ],
-  "commitMessageAction": "Renovate: Update"
+  "commitMessageAction": "Renovate: Update",
+  "rangeStrategy": "bump"
 }
